@@ -40,4 +40,13 @@ CREATE TABLE IF NOT EXISTS frame(
     frameStock INT
 );
 
+CREATE TABLE IF NOT EXISTS lens(
+    lens_type VARCHAR(100), --tipo de lente (monofocal,bifocal, etc)
+    lens_material VARCHAR(100), -- material del lente (plastico, policarbonato, cristal, etc)
+    lens_coating VARCHAR(100), -- recubrimiento del lente(antireflejo, antirrayado)
+    lens_color  VARCHAR(100), --color de la lente (si aplica)
+    lens_price DECIMAL (10,2), --precio de la lente
+    lens_stock INT --cantidad de stock disponible
+);
+
 --asdasd

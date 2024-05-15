@@ -1,0 +1,22 @@
+server:
+  port: 8081
+  error:
+    include-message: always
+
+spring:
+  #Configuracion de migracion
+  flyway:
+    enabled: true
+    baselineVersion: 1
+    locations:
+      classpath: db/migration
+    sqlMigrationSuffixes: .sql
+    baselineOnMigrate: true
+    sqlMigrationPrefix: V
+    schemas: public
+  #Conexion a base de datos--info de heroku
+  datasource:
+    url:  jdbc:postgresql://dbpsql:5432/maki?socketTimeout=3
+    username: postgres
+    password: admin
+    driverClassName: org.postgresql.Driver
