@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS users(
 
 CREATE TABLE IF NOT EXISTS patients(
     id SERIAL PRIMARY KEY,
+    user_id INT,
     ptFirstname VARCHAR(55) NOT NULL,
     ptLastname VARCHAR (55) NOT NULL,
     ptOccupation VARCHAR (55) NOT NULL,
@@ -24,7 +25,8 @@ CREATE TABLE IF NOT EXISTS patients(
     ptCity VARCHAR (55) NOT NULL,
     ptEmail VARCHAR UNIQUE NOT NULL,
     ptConsultationReason VARCHAR (100),
-    ptRecommendations VARCHAR (100)
+    ptRecommendations VARCHAR (100),
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 
@@ -49,4 +51,3 @@ CREATE TABLE IF NOT EXISTS lens(
     lens_stock INT --cantidad de stock disponible
 );
 
---asdasd

@@ -26,3 +26,4 @@ class User {
     var email: String? = null
     var phoneNumber: String? = null
 }
+
