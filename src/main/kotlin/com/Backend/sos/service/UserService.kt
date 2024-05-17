@@ -38,7 +38,7 @@ class UserService {
         }
     }
 
-    fun updateRecords (model: User): User{
+    fun updateRecord (model: User): User{
         try {
             val response = userRepository.findById(model.id)
                 ?:throw Exception("id no existe")
@@ -59,4 +59,17 @@ class UserService {
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
     }
+
+    fun updateRecords (firstname: String?, newRecords: Map<String?,Any?>): User{
+        val users = userRepository.findAll()
+        val user = users.find{ it.firstname === firstname}
+            ?:throw Exception("Usuario con el nombre $firstname no se encontró")
+        newRecords.forEach{(key, value) ->
+            when(key){
+                "firstname" -> if (value is String?) user.firstname = value
+                "lastname" -> if (value is String?)  user.lastname = value
+            }}
+        return userRepository.save(user)
+    }
+
 }
