@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 80
   error:
     include-message: always
 
@@ -16,7 +16,11 @@ spring:
     schemas: public
   #Conexion a base de datos--info de heroku
   datasource:
-    url:  jdbc:postgresql://dbpsql:5432/maki?socketTimeout=3
-    username: postgres
-    password: admin
-    driverClassName: org.postgresql.Driver
+    url:  jdbc:mysql://localhost:3306/dbsos?socketTimeout=3
+    username: root
+    password:
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
