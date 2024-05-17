@@ -32,6 +32,14 @@ class UserController {
         return  ResponseEntity(userService.update(model),HttpStatus.OK)
     }
 
-
+    @PatchMapping
+    fun  updateRecords (@PathVariable firstname: String, @RequestBody model: User):ResponseEntity<User>{
+        return try {
+            val updatedUser = userService.updateRecords(firstname, model)
+            ResponseEntity.ok(updatedUser)
+        } catch (e: Exception) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(null)
+        }
+    }
 }
 
