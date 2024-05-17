@@ -37,5 +37,26 @@ class UserService {
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
     }
-    
+
+    fun updateRecords (model: User): User{
+        try {
+            val response = userRepository.findById(model.id)
+                ?:throw Exception("id no existe")
+            response.apply {
+                firstname = model.firstname
+                lastname = model.lastname
+                age = model.age
+                charge = model.charge
+                birthdate = model.birthdate
+                checkInDate = model. checkInDate
+                ci = model.ci
+                email = model.email
+                phoneNumber = model.phoneNumber
+            }
+            return userRepository.save(response)
+
+        }catch (ex: Exception){
+            throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
+        }
+    }
 }

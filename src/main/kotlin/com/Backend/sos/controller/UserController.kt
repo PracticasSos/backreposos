@@ -22,4 +22,16 @@ class UserController {
             ResponseEntity(it, HttpStatus.OK)
         } ?: ResponseEntity<User>( HttpStatus.NOT_FOUND)
     }
+    @PostMapping
+    fun save(@RequestBody model: User): ResponseEntity<User>{
+        return  ResponseEntity(userService.save(model),HttpStatus.OK)
+    }
+
+    @PutMapping
+    fun update(@RequestBody model: User): ResponseEntity<User>{
+        return  ResponseEntity(userService.update(model),HttpStatus.OK)
+    }
+
+
 }
+
