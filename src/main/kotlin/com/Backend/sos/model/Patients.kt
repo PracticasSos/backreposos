@@ -22,5 +22,4 @@ class Patients {
     var ptEmail: String? = null
     var ptConsultationReason: String? = null
     var ptRecommendations: String? = null
-
 }
