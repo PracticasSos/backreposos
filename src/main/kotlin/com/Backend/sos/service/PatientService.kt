@@ -26,7 +26,6 @@ class PatientService {
             userRepository.findById(model.userId)
                 ?: throw Exception("Id del cliente no encontrada")
             return patientRepository.save(model)
-
         }
         catch (ex:Exception){
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)

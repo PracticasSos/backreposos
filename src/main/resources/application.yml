@@ -1,8 +1,8 @@
 server:
-  port: 80
+  port: 8081
   error:
     include-message: always
-
+#Configuracion de spring
 spring:
   #Configuracion de migracion
   flyway:
@@ -14,13 +14,9 @@ spring:
     baselineOnMigrate: true
     sqlMigrationPrefix: V
     schemas: public
-  #Conexion a base de datos--info de heroku
+
   datasource:
-    url:  jdbc:mysql://localhost:3306/dbsos?socketTimeout=3
-    username: root
-    password:
-    driverClassName: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+    url: jdbc:postgresql://ruby.db.elephantsql.com:5432/tinzxbta?socketTimeout=3
+    username: tinzxbta
+    password: B5e4R_RV6sP9mtUtg8mBx-Kf6IJysWOI
+    driverClassName: org.postgresql.Driver
