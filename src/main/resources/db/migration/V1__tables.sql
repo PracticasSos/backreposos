@@ -12,6 +12,15 @@ CREATE TABLE IF NOT EXISTS users(
 );
 
 
+CREATE TABLE IF NOT EXISTS role(
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    role VARCHAR (30) NOT NULL,
+    UNIQUE (role, user_id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+
 CREATE TABLE IF NOT EXISTS patients(
     id SERIAL PRIMARY KEY,
     user_id INT,
