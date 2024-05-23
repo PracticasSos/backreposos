@@ -21,9 +21,11 @@ class User {
     var age: Long? = null
     var charge: String? = null
     var birthdate: Date? = null
+    @Column(name = "check_in_date")
     var checkInDate: Date? = null
     var ci: String? = null
     var email: String? = null
+    @Column(name = "phone_number")
     var phoneNumber: String? = null
 }
 

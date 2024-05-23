@@ -5,10 +5,10 @@ CREATE TABLE IF NOT EXISTS users(
     age INT,
     charge VARCHAR(40),
     birthdate DATE,
-    checkInDate DATE,
-    ci VARCHAR(20) UNIQUE,
-    email VARCHAR(20) UNIQUE,
-    phoneNumber VARCHAR(20) UNIQUE
+    check_in_date DATE,
+    ci VARCHAR(25) UNIQUE,
+    email VARCHAR(30) UNIQUE,
+    phone_number VARCHAR(25) UNIQUE
 );
 
 
@@ -24,17 +24,17 @@ CREATE TABLE IF NOT EXISTS role(
 CREATE TABLE IF NOT EXISTS patients(
     id SERIAL PRIMARY KEY,
     user_id INT,
-    ptFirstname VARCHAR(55) NOT NULL,
-    ptLastname VARCHAR (55) NOT NULL,
-    ptOccupation VARCHAR (55) NOT NULL,
-    ptAddress VARCHAR(255) NOT NULL,
-    ptPhone VARCHAR(20) NOT NULL,
-    ptAge INT,
-    ptCi VARCHAR(20) UNIQUE NOT NULL,
-    ptCity VARCHAR (55) NOT NULL,
-    ptEmail VARCHAR UNIQUE NOT NULL,
-    ptConsultationReason VARCHAR (100),
-    ptRecommendations VARCHAR (100),
+    pt_firstname VARCHAR(55) NOT NULL,
+    pt_lastname VARCHAR (55) NOT NULL,
+    pt_occupation VARCHAR (55) NOT NULL,
+    pt_address VARCHAR(255) NOT NULL,
+    pt_phone VARCHAR(25) NOT NULL,
+    pt_age INT,
+    pt_ci VARCHAR(25) UNIQUE NOT NULL,
+    pt_city VARCHAR (55) NOT NULL,
+    pt_email VARCHAR UNIQUE NOT NULL,
+    pt_consultation_reason VARCHAR (100),
+    pt_recommendations VARCHAR (100),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
