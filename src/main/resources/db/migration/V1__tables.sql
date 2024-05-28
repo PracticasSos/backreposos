@@ -1,5 +1,17 @@
+CREATE TABLE IF NOT EXISTS branch(
+  id SERIAL PRIMARY KEY,
+    name_branch VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS roles(
+    id SERIAL PRIMARY KEY,
+    role_name VARCHAR(40) NOT NULL UNIQUE
+);
+
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY,
+    branch_id INT,
+    roles_id INT,
     firstname VARCHAR(55) NOT NULL,
     lastname VARCHAR(55) NOT NULL,
     age INT,
@@ -8,16 +20,9 @@ CREATE TABLE IF NOT EXISTS users(
     check_in_date DATE,
     ci VARCHAR(25) UNIQUE,
     email VARCHAR(30) UNIQUE,
-    phone_number VARCHAR(25) UNIQUE
-);
-
-
-CREATE TABLE IF NOT EXISTS role(
-    id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    role VARCHAR (30) NOT NULL,
-    UNIQUE (role, user_id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    phone_number VARCHAR(25) UNIQUE,
+    FOREIGN KEY (branch_id) REFERENCES branch(id),
+    FOREIGN KEY (roles_id) REFERENCES roles(id)
 );
 
 

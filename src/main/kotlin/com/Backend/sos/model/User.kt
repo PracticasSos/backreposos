@@ -27,5 +27,9 @@ class User {
     var email: String? = null
     @Column(name = "phone_number")
     var phoneNumber: String? = null
+    @Column(name = "branch_id")
+    var branchId: Long? = null
+    @Column(name = "roles_id")
+    var rolesId: Long? = null
 }
 
