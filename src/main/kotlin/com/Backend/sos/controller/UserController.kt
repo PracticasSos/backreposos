@@ -14,7 +14,6 @@ class UserController {
 
     @Autowired
     lateinit var userService:UserService
-
     @GetMapping
     fun login():ResponseEntity<*>{
 
@@ -41,5 +40,6 @@ class UserController {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body(null)
         }
     }
+
 }
 

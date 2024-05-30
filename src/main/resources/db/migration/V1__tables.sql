@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS branch(
   id SERIAL PRIMARY KEY,
-    name_branch VARCHAR(40) NOT NULL
+  name_branch VARCHAR(40) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS roles(
@@ -64,4 +64,13 @@ CREATE TABLE IF NOT EXISTS lens(
     lens_price DECIMAL (10,2), --precio de la lente
     lens_stock INT --cantidad de stock disponible
 );
+
+CREATE VIEW user_view AS
+SELECT
+    users.*,
+    roles.role_name
+FROM
+    users
+        INNER JOIN
+    roles ON users.roles_id = roles.id;
 
