@@ -3,7 +3,7 @@ package com.Backend.sos.model
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "roles" )
+@Table(name = "role" )
 class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -11,4 +11,9 @@ class Roles {
     var id: Long? = null
     @Column(name = "role_name")
     var roleName: String? = null
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    var user: User? = null
+
 }

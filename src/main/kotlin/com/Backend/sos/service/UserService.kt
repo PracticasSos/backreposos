@@ -1,16 +1,41 @@
 package com.Backend.sos.service
 
+import com.Backend.sos.dto.LoginRequest
+import com.Backend.sos.dto.RegisterRequest
+import com.Backend.sos.dto.TokenDto
+import com.Backend.sos.model.Roles
 import com.Backend.sos.model.User
+import com.Backend.sos.repository.RoleRepository
+
 import com.Backend.sos.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
+import java.lang.IllegalArgumentException
+
 
 @Service
-class UserService {
+
+    class UserService: UserDetailsService{
     @Autowired
     lateinit var userRepository: UserRepository
+
+
+    @Autowired
+    lateinit var jwtService: JwtService
+
+    @Autowired
+    lateinit var roleRepository: RoleRepository
+
+
+    @Autowired
+    lateinit var passwordEncoder: PasswordEncoder
+
 
     fun list():List<User>?{
         return userRepository.findAll()
@@ -25,15 +50,39 @@ class UserService {
         }
     }
 
-    fun update (model: User): User{
-        try {
-            userRepository.findById(model.id)
-                ?: throw Exception("ID no exists")
 
-            return userRepository.save(model)
+    fun register(request: RegisterRequest): TokenDto {
+        if (userRepository.findByUsername(request.username) != null) {
+            throw IllegalArgumentException("Este nombre de usuario ya está en uso.")
         }
-        catch (ex:Exception){
-            throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
+
+        val user = User().apply {
+            username = request.username
+            firstname = request.firstname
+            lastname = request.lastname
+            age = request.age
+            charge = request.charge
+            birthdate = request.birthdate
+            checkInDate = request.check_in_date
+            ci = request.ci
+            email = request.email
+            phoneNumber = request.phone_number
+            password = passwordEncoder.encode(request.password)
+            locked = false
+            disabled = false
+        }
+
+        // Asignar un rol por defecto
+        val defaultRole = roleRepository.findByRoleName("Vendedor")
+            ?: throw IllegalArgumentException("Role 'Vendedor' not found")
+        user.role = setOf(defaultRole)
+
+        val savedUser = userRepository.save(user)
+        val userDetails = loadUserByUsername(savedUser.username!!)
+        val token = jwtService.generateToken(userDetails)
+
+        return TokenDto().apply {
+            jwt = token
         }
     }
 
@@ -56,5 +105,28 @@ class UserService {
             if (model.age != null) this.age = model.age
         }
         return userRepository.save(user)
+    }
+
+
+
+
+    @Override
+    @Throws(UsernameNotFoundException::class)
+    override fun loadUserByUsername(username: String): UserDetails {
+        val userEntity = userRepository.findByUsername(username)
+            ?: throw
+            UsernameNotFoundException(
+                "User $username not found."
+            )
+        val roles: Array<String?> = userEntity.role?.map {
+                role -> role.roleName }!!.toTypedArray()
+
+        return org.springframework.security.core.userdetails.User.builder()
+            .username(userEntity.username)
+            .password(userEntity.password)
+            .roles(*roles)
+            .accountLocked(userEntity.locked!!)
+            .disabled(userEntity.disabled!!)
+            .build()
     }
 }

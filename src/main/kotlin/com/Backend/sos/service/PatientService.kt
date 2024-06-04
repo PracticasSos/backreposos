@@ -20,17 +20,7 @@ class PatientService {
         return patientRepository.findAll()
     }
 
-    fun save (model: Patients): Patients{
 
-        try {
-            userRepository.findById(model.userId)
-                ?: throw Exception("Id del cliente no encontrada")
-            return patientRepository.save(model)
-        }
-        catch (ex:Exception){
-            throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
-        }
-    }
 
     fun update (model: Patients): Patients{
         try {
