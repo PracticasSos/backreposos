@@ -3,15 +3,15 @@ CREATE TABLE IF NOT EXISTS branch(
   name_branch VARCHAR(40) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS roles(
+CREATE TABLE IF NOT EXISTS role(
     id SERIAL PRIMARY KEY,
     role_name VARCHAR(40) NOT NULL UNIQUE
 );
 
+
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY,
-    branch_id INT,
-    roles_id INT,
+    username VARCHAR(20) NOT NULL UNIQUE,
     firstname VARCHAR(55) NOT NULL,
     lastname VARCHAR(55) NOT NULL,
     age INT,
@@ -19,11 +19,19 @@ CREATE TABLE IF NOT EXISTS users(
     birthdate DATE,
     check_in_date DATE,
     ci VARCHAR(25) UNIQUE,
-    email VARCHAR(30) UNIQUE,
+    email VARCHAR(50) UNIQUE,
     phone_number VARCHAR(25) UNIQUE,
+    password VARCHAR(200)  NOT NULL,
+    locked BOOLEAN NOT NULL DEFAULT FALSE,
+    disabled BOOLEAN NOT NULL DEFAULT FALSE,
+    branch_id INT,
+    role_id INT,
     FOREIGN KEY (branch_id) REFERENCES branch(id),
-    FOREIGN KEY (roles_id) REFERENCES roles(id)
+    FOREIGN KEY (role_id) REFERENCES role(id)
 );
+
+
+
 
 
 CREATE TABLE IF NOT EXISTS patients(
@@ -68,9 +76,9 @@ CREATE TABLE IF NOT EXISTS lens(
 CREATE VIEW user_view AS
 SELECT
     users.*,
-    roles.role_name
+    branch.name_branch
 FROM
     users
         INNER JOIN
-    roles ON users.roles_id = roles.id;
+    branch ON users.branch_id = branch.id;
 

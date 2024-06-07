@@ -1,4 +1,4 @@
-package com.empresa.security.config
+package com.Backend.sos.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

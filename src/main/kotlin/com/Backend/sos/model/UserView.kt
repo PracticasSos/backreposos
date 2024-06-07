@@ -33,5 +33,5 @@ class UserView {
 
 
 //INSERT INTO branch (name_branch) VALUES ('Sucursal 1'),('Sucursal 2');
-//INSERT INTO roles (role_name) VALUES ('Vendedor'),('Optómetra');
+//INSERT INTO role (role_name) VALUES ('Admin'),('Vendedor'),('Optómetra');
 //BrunetoUwu

@@ -24,10 +24,7 @@ class PatientController {
         } ?: ResponseEntity<Patients>( HttpStatus.NOT_FOUND)
     }
 
-    @PostMapping
-    fun save(@RequestBody model: Patients): ResponseEntity<Patients>{
-        return  ResponseEntity(patientService.save(model),HttpStatus.OK)
-    }
+
 
     @PutMapping
     fun update(@RequestBody model: Patients): ResponseEntity<Patients>{
