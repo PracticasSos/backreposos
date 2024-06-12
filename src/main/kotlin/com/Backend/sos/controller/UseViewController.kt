@@ -11,7 +11,7 @@ class   UseViewController {
 
     @Autowired
     lateinit var userViewService: UserViewService
-    @GetMapping("/view users")
+    @GetMapping("/users")
     fun listUserView ():List<UserView>{
         return  userViewService.lisUserView ()
     }

@@ -29,6 +29,8 @@ class UserView {
     var phoneNumber: String? = null
     @Column(name = "role_name")
     var roleName: String? = null
+    @Column(name = "name_branch")
+    var nameBranch: String? = null
 }
 
 

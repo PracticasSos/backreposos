@@ -43,6 +43,7 @@ class PatientService {
             ptPhone = request.Número
             ptAge = request.Edad
             ptCi = request.Cedula
+            ptCity = request.Ciudad
             ptEmail = request.Email
             ptConsultationReason = request.Motivo
             ptRecommendations = request.Recomendación
