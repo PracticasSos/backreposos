@@ -3,6 +3,7 @@ package com.Backend.sos.config
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.web.server.ResponseStatusException
 
 
 @Configuration
@@ -24,9 +26,16 @@ class SecurityConfig{
 
     @Autowired
     lateinit var userDetailsService: UserDetailsService
+
+    lateinit var passwordEncoder: PasswordEncoder
+
+
     //contiene los filtros de seguridad
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+        try {
+
+
         http.csrf { it.disable() }
             .authorizeHttpRequests { authRequests ->
                 authRequests
@@ -38,9 +47,10 @@ class SecurityConfig{
             }
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
 
-        return http.build()
+        return http.build()}catch (ex: Exception){
+            throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
+        }
     }
-
 
     @Bean
     fun authenticationManager(http: HttpSecurity, passwordEncoder: PasswordEncoder): AuthenticationManager {

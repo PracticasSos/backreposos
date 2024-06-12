@@ -21,7 +21,7 @@ import java.lang.IllegalArgumentException
 
 @Service
 
-    class UserService: UserDetailsService{
+class UserService: UserDetailsService{
     @Autowired
     lateinit var userRepository: UserRepository
 
@@ -78,14 +78,13 @@ import java.lang.IllegalArgumentException
         user.role = setOf(defaultRole)
 
         val savedUser = userRepository.save(user)
-        val userDetails = loadUserByUsername(savedUser.username!!)
+        val userDetails = loadUserByUsername(savedUser.username!!)// se encarga de cargar los detalles del usuario desde la base de datos utilizando el nombre de usuario proporcionado.
         val token = jwtService.generateToken(userDetails)
 
         return TokenDto().apply {
             jwt = token
         }
     }
-
 
 
     fun updateRecords(firstname: String, model: User): User {
@@ -107,24 +106,19 @@ import java.lang.IllegalArgumentException
         return userRepository.save(user)
     }
 
-
-
-
     @Override
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
         val userEntity = userRepository.findByUsername(username)
-            ?: throw
-            UsernameNotFoundException(
-                "User $username not found."
-            )
-        val roles: Array<String?> = userEntity.role?.map {
-                role -> role.roleName }!!.toTypedArray()
+            ?: throw UsernameNotFoundException("User $username not found.")
+
+        val role = roleRepository.findByRoleName(roleName = "Vendedor")
+            ?: throw UsernameNotFoundException("Role 'Vendedor' not found.")
 
         return org.springframework.security.core.userdetails.User.builder()
             .username(userEntity.username)
             .password(userEntity.password)
-            .roles(*roles)
+            .roles(role.roleName) // Aquí solo asignamos el nombre del rol
             .accountLocked(userEntity.locked!!)
             .disabled(userEntity.disabled!!)
             .build()

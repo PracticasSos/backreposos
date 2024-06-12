@@ -14,9 +14,9 @@ import javax.crypto.spec.SecretKeySpec
 @Service
 class JwtService { //todo lo relacionado con el token para que se genere de manera automatica
 
-    var  secret = "0107911596" //llevarla a base64 para mandarla com Key a la firma de nuestro token
+        var  secret = "s3cr37" //llevarla a base64 para mandarla com Key a la firma de nuestro token
     fun generateToken(userDetails: UserDetails): String{
-        val claims = Jwts.claims().setSubject(userDetails.username)
+        val claims:Claims = Jwts.claims().setSubject(userDetails.username)
         return Jwts.builder()
             .setClaims(claims)
             .setIssuedAt(Date(System.currentTimeMillis()))
