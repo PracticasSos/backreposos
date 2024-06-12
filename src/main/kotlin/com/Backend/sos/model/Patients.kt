@@ -22,7 +22,7 @@ class    Patients {
     @Column(name = "pt_phone")
     var ptPhone: String? = null
     @Column(name = "pt_age")
-    var ptAge: Long? = null
+    var ptAge: Int? = null
     @Column(name = "pt_ci")
     var ptCi: String? = null
     @Column(name = "pt_city")

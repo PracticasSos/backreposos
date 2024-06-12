@@ -1,9 +1,7 @@
 package com.Backend.sos.model
 
 import jakarta.persistence.*
-import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.userdetails.UserDetails
-import java.util.Collections
+
 
 import java.util.Date
 
@@ -30,15 +28,13 @@ class User {
     var phoneNumber: String? = null
     @Column(nullable = false, length = 200)
     var password: String? = null
-    @Column(name = "branch_id")
-    var branchId: Long? = null
     @Column(nullable = false)
     var locked: Boolean? = null
     var disabled: Boolean? = null
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    var role: Set<Roles>? = null
-
-
-
+    @OneToOne
+    @JoinColumn(name = "branch_id")
+    var branch: Branch? = null
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    lateinit var role: Roles
 }
-

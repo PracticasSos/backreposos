@@ -1,5 +1,6 @@
 package com.Backend.sos.service
 
+import com.Backend.sos.dto.RegisterPatients
 import com.Backend.sos.model.Patients
 import com.Backend.sos.repository.PatientRepository
 import com.Backend.sos.repository.UserRepository
@@ -33,6 +34,23 @@ class PatientService {
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
         }
+    fun registerPatient (request: RegisterPatients): Patients{
+        val patient = Patients().apply {
+            ptFirstname = request.Nombre
+            ptLastname = request.Apellido
+            ptOccupation = request.Ocupación
+            ptAddress = request.Dirección
+            ptPhone = request.Número
+            ptAge = request.Edad
+            ptCi = request.Cedula
+            ptEmail = request.Email
+            ptConsultationReason = request.Motivo
+            ptRecommendations = request.Recomendación
+        }
+
+        return  patientRepository.save(patient)
+    }
+
 
         fun updatePatient(ptFirstname: String, model: Patients): Patients{
             val allPatients = patientRepository.findAll()

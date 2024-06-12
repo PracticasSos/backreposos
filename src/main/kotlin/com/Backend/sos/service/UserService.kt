@@ -1,19 +1,13 @@
 package com.Backend.sos.service
 
-import com.Backend.sos.dto.LoginRequest
-import com.Backend.sos.dto.RegisterRequest
-import com.Backend.sos.dto.TokenDto
-import com.Backend.sos.model.Roles
-import com.Backend.sos.model.User
-import com.Backend.sos.repository.RoleRepository
 
+import com.Backend.sos.dto.RegisterRequest
+import com.Backend.sos.model.User
+import com.Backend.sos.repository.BranchRepository
+import com.Backend.sos.repository.RoleRepository
 import com.Backend.sos.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
-import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.core.userdetails.UserDetailsService
-import org.springframework.security.core.userdetails.UsernameNotFoundException
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import java.lang.IllegalArgumentException
@@ -21,21 +15,15 @@ import java.lang.IllegalArgumentException
 
 @Service
 
-class UserService: UserDetailsService{
+class UserService{
     @Autowired
     lateinit var userRepository: UserRepository
 
-
     @Autowired
-    lateinit var jwtService: JwtService
+    lateinit var branchRepository: BranchRepository
 
     @Autowired
     lateinit var roleRepository: RoleRepository
-
-
-    @Autowired
-    lateinit var passwordEncoder: PasswordEncoder
-
 
     fun list():List<User>?{
         return userRepository.findAll()
@@ -51,10 +39,24 @@ class UserService: UserDetailsService{
     }
 
 
-    fun register(request: RegisterRequest): TokenDto {
+    fun register(request: RegisterRequest): User {
         if (userRepository.findByUsername(request.username) != null) {
             throw IllegalArgumentException("Este nombre de usuario ya está en uso.")
         }
+
+        val roleName = request.roleNam ?: throw IllegalArgumentException("El nombre del rol es obligatorio.")
+        val roleUser = roleRepository.findByRoleName(roleName)
+
+        if (roleUser == null) {
+            throw IllegalArgumentException("El rol especificado no existe: $roleName")
+        }
+
+        val brachRegister = request.nameBr ?: throw IllegalArgumentException("La sucursal es obligatioria.")
+        val branchUser = branchRepository.findByNameBranch(brachRegister)
+        if (branchUser == null){
+            throw IllegalArgumentException("La rama asignada no existe $brachRegister")
+        }
+
 
         val user = User().apply {
             username = request.username
@@ -67,25 +69,18 @@ class UserService: UserDetailsService{
             ci = request.ci
             email = request.email
             phoneNumber = request.phone_number
-            password = passwordEncoder.encode(request.password)
-            locked = false
-            disabled = false
+            password = request.password
+            role = roleUser
+            locked = request.locked
+            disabled = request.disable
+            branch = branchUser
         }
 
-        // Asignar un rol por defecto
-        val defaultRole = roleRepository.findByRoleName("Vendedor")
-            ?: throw IllegalArgumentException("Role 'Vendedor' not found")
-        user.role = setOf(defaultRole)
 
-        val savedUser = userRepository.save(user)
-        val userDetails = loadUserByUsername(savedUser.username!!)// se encarga de cargar los detalles del usuario desde la base de datos utilizando el nombre de usuario proporcionado.
-        val token = jwtService.generateToken(userDetails)
 
-        return TokenDto().apply {
-            jwt = token
-        }
+
+        return userRepository.save(user)
     }
-
 
     fun updateRecords(firstname: String, model: User): User {
         val allUsers = userRepository.findAll()
@@ -106,7 +101,7 @@ class UserService: UserDetailsService{
         return userRepository.save(user)
     }
 
-    @Override
+ /*   @Override
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
         val userEntity = userRepository.findByUsername(username)
@@ -122,5 +117,5 @@ class UserService: UserDetailsService{
             .accountLocked(userEntity.locked!!)
             .disabled(userEntity.disabled!!)
             .build()
-    }
+    }*/
 }
