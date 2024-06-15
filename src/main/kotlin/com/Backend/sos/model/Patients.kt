@@ -33,4 +33,7 @@ class    Patients {
     var ptConsultationReason: String? = null
     @Column(name = "pt_recommendations")
     var ptRecommendations: String? = null
+    @ManyToOne
+    @JoinColumn (name = "user_id")
+    var user: User? = null
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
+import java.lang.IllegalArgumentException
 
 @Service
 class PatientService {
@@ -33,8 +34,14 @@ class PatientService {
         catch (ex:Exception){
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
-        }
-    fun registerPatient (request: RegisterPatients): Patients{
+    }
+
+
+    fun registerPatient (request: RegisterPatients): Patients {
+
+       val registerpt = userRepository.findByUsername(request.usuario)
+           ?:throw  IllegalArgumentException("El usuario con el nombre de usuario '${request.usuario}' no existe")
+
         val patient = Patients().apply {
             ptFirstname = request.Nombre
             ptLastname = request.Apellido
@@ -47,13 +54,13 @@ class PatientService {
             ptEmail = request.Email
             ptConsultationReason = request.Motivo
             ptRecommendations = request.Recomendación
+            user = registerpt
         }
 
         return  patientRepository.save(patient)
     }
 
-
-        fun updatePatient(ptFirstname: String, model: Patients): Patients{
+    fun updatePatient(ptFirstname: String, model: Patients): Patients{
             val allPatients = patientRepository.findAll()
             val patient = allPatients.find {it.ptFirstname == ptFirstname}
                 ?:throw  Exception("Usuaro con el nombre $ptFirstname no se encuentra")
@@ -72,5 +79,5 @@ class PatientService {
                 if (model.ptRecommendations != null) this.ptRecommendations = model.ptRecommendations
             }
             return patientRepository.save(patient)
-        }
+    }
 }

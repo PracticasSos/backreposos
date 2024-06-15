@@ -18,3 +18,5 @@ class RegisterRequest { //Captura los datos de registro del usuario
     var disable: Boolean? = null
     var nameBr: String? = null
 }
+
+

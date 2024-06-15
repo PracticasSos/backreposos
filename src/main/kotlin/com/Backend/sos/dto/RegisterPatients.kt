@@ -12,4 +12,5 @@ class RegisterPatients {
     var Email: String? = null
     var Motivo: String? = null
     var Recomendación: String? = null
+    var usuario: String? = null
 }

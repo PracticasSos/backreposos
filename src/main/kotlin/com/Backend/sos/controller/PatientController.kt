@@ -1,5 +1,6 @@
 package com.Backend.sos.controller
 
+import com.Backend.sos.dto.RegisterPatients
 import com.Backend.sos.model.Patients
 import com.Backend.sos.model.User
 import com.Backend.sos.service.PatientService
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/patients")
 @CrossOrigin(methods = [RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH, RequestMethod.PUT], origins = ["http://localhost:3000"] )
 class PatientController {
-
     @Autowired
     lateinit var patientService: PatientService
 
@@ -24,7 +24,11 @@ class PatientController {
         } ?: ResponseEntity<Patients>( HttpStatus.NOT_FOUND)
     }
 
-
+    @PostMapping("/registro")
+    fun register (@RequestBody request: RegisterPatients):ResponseEntity<Patients>{
+        val registerPatient = patientService.registerPatient(request)
+        return  ResponseEntity.ok(registerPatient)
+    }
 
     @PutMapping
     fun update(@RequestBody model: Patients): ResponseEntity<Patients>{

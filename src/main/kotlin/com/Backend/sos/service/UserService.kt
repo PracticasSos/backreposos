@@ -2,6 +2,7 @@ package com.Backend.sos.service
 
 
 import com.Backend.sos.dto.RegisterRequest
+import com.Backend.sos.dto.delete
 import com.Backend.sos.model.User
 import com.Backend.sos.repository.BranchRepository
 import com.Backend.sos.repository.RoleRepository
@@ -59,17 +60,17 @@ class UserService{
 
 
         val user = User().apply {
-            username = request.username
-            firstname = request.firstname
-            lastname = request.lastname
-            age = request.age
-            charge = request.charge
+            username = request.username?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("El Nombre de usuario no debe ser vacio")
+            firstname = request.firstname ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener un Nombre")
+            lastname = request.lastname ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener un Apellido")
+            age = request.age!!.takeIf { it > 0 } ?: throw IllegalArgumentException("La edad es obligatoria y debe ser mayor que cero")
+            charge = request.charge ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener un cargo")
             birthdate = request.birthdate
             checkInDate = request.check_in_date
-            ci = request.ci
-            email = request.email
-            phoneNumber = request.phone_number
-            password = request.password
+            ci = request.ci ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener un número de cédula")
+            email = request.email ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener un email")
+            phoneNumber = request.phone_number ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener un número de telefono")
+            password = request.password ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener una contraseña")
             role = roleUser
             locked = request.locked
             disabled = request.disable
@@ -80,6 +81,13 @@ class UserService{
 
 
         return userRepository.save(user)
+    }
+
+
+    fun DeleteUser (request: delete): Boolean? {
+         val respose = userRepository.findByUsername(request.username)?: throw Exception("El usuario no existe")
+        userRepository.delete(respose)
+        return true
     }
 
     fun updateRecords(firstname: String, model: User): User {
