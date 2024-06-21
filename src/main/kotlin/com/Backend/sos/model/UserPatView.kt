@@ -3,12 +3,13 @@ package com.Backend.sos.model
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "patients")
-class    Patients {
+@Table(name = "user_view_pat_register")
+class UserPatView {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(updatable = false)
     var id: Long? = null
+    var username: String? = null
     @Column(name = "pt_firstname")
     var ptFirstname: String? = null
     @Column(name = "pt_lastname")
@@ -31,7 +32,4 @@ class    Patients {
     var ptConsultationReason: String? = null
     @Column(name = "pt_recommendations")
     var ptRecommendations: String? = null
-    @ManyToOne
-    @JoinColumn (name = "user_id")
-    var user: User? = null
 }

@@ -11,6 +11,4 @@ class Branch {
 
     @Column(name = "name_branch")
     var nameBranch: String? = null
-
-
 }

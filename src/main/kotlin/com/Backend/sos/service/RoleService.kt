@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service
 class RoleService {
     @Autowired
     lateinit var roleRespository:RoleRepository
-
     fun list():List<Roles>?{
         return roleRespository.findAll()
     }
-
 }

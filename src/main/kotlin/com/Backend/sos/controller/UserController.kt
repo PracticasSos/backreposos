@@ -4,7 +4,6 @@ package com.Backend.sos.controller
 import com.Backend.sos.dto.*
 import com.Backend.sos.model.User
 import com.Backend.sos.service.UserService
-import org.hibernate.sql.Delete
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -35,7 +34,7 @@ class UserController {
     }
 
     @DeleteMapping("/delete")
-    fun delete (@RequestBody request: delete): Boolean?{
+    fun delete (@RequestBody request: deleteUser): Boolean?{
         return userService.DeleteUser(request)
     }
 

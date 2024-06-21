@@ -2,7 +2,7 @@ package com.Backend.sos.service
 
 
 import com.Backend.sos.dto.RegisterRequest
-import com.Backend.sos.dto.delete
+import com.Backend.sos.dto.deleteUser
 import com.Backend.sos.model.User
 import com.Backend.sos.repository.BranchRepository
 import com.Backend.sos.repository.RoleRepository
@@ -84,7 +84,7 @@ class UserService{
     }
 
 
-    fun DeleteUser (request: delete): Boolean? {
+    fun DeleteUser (request: deleteUser): Boolean? {
          val respose = userRepository.findByUsername(request.username)?: throw Exception("El usuario no existe")
         userRepository.delete(respose)
         return true

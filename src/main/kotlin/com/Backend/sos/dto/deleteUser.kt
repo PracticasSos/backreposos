@@ -1,5 +1,5 @@
 package com.Backend.sos.dto
 
-class delete {
+class deleteUser {
     var username: String? = null
 }

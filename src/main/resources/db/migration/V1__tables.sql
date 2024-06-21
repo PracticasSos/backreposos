@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS users(
 
 
 CREATE TABLE IF NOT EXISTS patients(
-    id SERIAL PRIMARY KEY,
     user_id INT,
+    id SERIAL PRIMARY KEY,
     pt_firstname VARCHAR(55) NOT NULL,
     pt_lastname VARCHAR (55) NOT NULL,
     pt_occupation VARCHAR (55) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS patients(
     pt_email VARCHAR UNIQUE NOT NULL,
     pt_consultation_reason VARCHAR (100),
     pt_recommendations VARCHAR (100),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 
@@ -73,6 +73,27 @@ CREATE TABLE IF NOT EXISTS lens(
     lens_stock INT --cantidad de stock disponible
 );
 
+
+CREATE TABLE IF NOT EXISTS rx_uso(
+    id SERIAL PRIMARY KEY,
+    sphere_d VARCHAR(15) NOT NULL,
+    cylinder_d VARCHAR(15) NOT NULL,
+    axis_d VARCHAR(15) NOT NULL,
+    prism_d VARCHAR(15) NOT NULL,
+    add_d VARCHAR(15) NOT NULL,
+    av_vl_d VARCHAR(15) NOT NULL,
+    dnp_d VARCHAR(15) NOT NULL,
+    alt_d VARCHAR(15) NOT NULL,
+    sphere_i VARCHAR(15) NOT NULL,
+    cylinder_i VARCHAR(15) NOT NULL,
+    axis_i VARCHAR(15) NOT NULL,
+    prism_i VARCHAR(15) NOT NULL,
+    add_i VARCHAR(15) NOT NULL,
+    av_vl_i VARCHAR(15) NOT NULL,
+    dnp_i VARCHAR(15) NOT NULL,
+    alt_i VARCHAR(15) NOT NULL
+);
+
 CREATE VIEW user_view AS
 SELECT
     users.*,
@@ -84,3 +105,12 @@ FROM
     branch ON users.branch_id = branch.id
         INNER JOIN
     role ON users.role_id = role.id;
+
+CREATE VIEW user_view_pat_register AS
+SELECT
+    patients.*,
+    users.username
+FROM
+    patients
+           INNER JOIN
+    users ON patients.user_id = users.id

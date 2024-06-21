@@ -35,7 +35,7 @@ class PatientController {
         return  ResponseEntity(patientService.update(model),HttpStatus.OK)
     }
 
-    @PatchMapping
+  /*  @PatchMapping
     fun  updateRecords (@PathVariable ptfirstname: String, @RequestBody model: Patients):ResponseEntity<Patients>{
         return try {
             val updatedUser = patientService.updatePatient(ptfirstname, model)
@@ -43,5 +43,5 @@ class PatientController {
         } catch (e: Exception) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body(null)
         }
-    }
+    }*/
 }

@@ -26,9 +26,8 @@ class PatientService {
 
     fun update (model: Patients): Patients{
         try {
-            patientRepository.findById(model.id)
-                ?: throw Exception("ID no exists")
-
+            patientRepository.findByPtFirstname(model.ptFirstname)
+                ?: throw Exception("estos nombres no existen")
             return patientRepository.save(model)
         }
         catch (ex:Exception){
@@ -36,31 +35,28 @@ class PatientService {
         }
     }
 
-
-    fun registerPatient (request: RegisterPatients): Patients {
-
+    fun registerPatient (request: RegisterPatients): Patients{
        val registerpt = userRepository.findByUsername(request.usuario)
            ?:throw  IllegalArgumentException("El usuario con el nombre de usuario '${request.usuario}' no existe")
 
         val patient = Patients().apply {
-            ptFirstname = request.Nombre
-            ptLastname = request.Apellido
-            ptOccupation = request.Ocupación
-            ptAddress = request.Dirección
-            ptPhone = request.Número
-            ptAge = request.Edad
-            ptCi = request.Cedula
-            ptCity = request.Ciudad
-            ptEmail = request.Email
-            ptConsultationReason = request.Motivo
-            ptRecommendations = request.Recomendación
             user = registerpt
+            ptFirstname = request.name
+            ptLastname = request.apellido
+            ptOccupation = request.ocupación
+            ptAddress = request.dirección
+            ptPhone = request.número
+            ptAge = request.edad
+            ptCi = request.cedula
+            ptCity = request.ciudad
+            ptEmail = request.email
+            ptConsultationReason = request.motivo
+            ptRecommendations = request.recomendación
         }
-
         return  patientRepository.save(patient)
     }
 
-    fun updatePatient(ptFirstname: String, model: Patients): Patients{
+   /* fun updatePatient(ptFirstname: String, model: Patients): Patients{
             val allPatients = patientRepository.findAll()
             val patient = allPatients.find {it.ptFirstname == ptFirstname}
                 ?:throw  Exception("Usuaro con el nombre $ptFirstname no se encuentra")
@@ -79,5 +75,5 @@ class PatientService {
                 if (model.ptRecommendations != null) this.ptRecommendations = model.ptRecommendations
             }
             return patientRepository.save(patient)
-    }
+    }*/
 }
