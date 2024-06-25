@@ -76,22 +76,24 @@ CREATE TABLE IF NOT EXISTS lens(
 
 CREATE TABLE IF NOT EXISTS rx_uso(
     id SERIAL PRIMARY KEY,
-    sphere_d VARCHAR(15) NOT NULL,
-    cylinder_d VARCHAR(15) NOT NULL,
-    axis_d VARCHAR(15) NOT NULL,
-    prism_d VARCHAR(15) NOT NULL,
-    add_d VARCHAR(15) NOT NULL,
-    av_vl_d VARCHAR(15) NOT NULL,
-    dnp_d VARCHAR(15) NOT NULL,
-    alt_d VARCHAR(15) NOT NULL,
-    sphere_i VARCHAR(15) NOT NULL,
-    cylinder_i VARCHAR(15) NOT NULL,
-    axis_i VARCHAR(15) NOT NULL,
-    prism_i VARCHAR(15) NOT NULL,
-    add_i VARCHAR(15) NOT NULL,
-    av_vl_i VARCHAR(15) NOT NULL,
-    dnp_i VARCHAR(15) NOT NULL,
-    alt_i VARCHAR(15) NOT NULL
+    id_user Int,
+    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE,
+    sphere_r VARCHAR(15) NOT NULL,
+    cylinder_r VARCHAR(15) NOT NULL,
+    axis_r VARCHAR(15) NOT NULL,
+    prism_r VARCHAR(15) NOT NULL,
+    add_r VARCHAR(15) NOT NULL,
+    av_vl_r VARCHAR(15) NOT NULL,
+    dnp_r VARCHAR(15) NOT NULL,
+    alt_r VARCHAR(15) NOT NULL,
+    sphere_l VARCHAR(15) NOT NULL,
+    cylinder_l VARCHAR(15) NOT NULL,
+    axis_l VARCHAR(15) NOT NULL,
+    prism_l VARCHAR(15) NOT NULL,
+    add_l VARCHAR(15) NOT NULL,
+    av_vl_l VARCHAR(15) NOT NULL,
+    dnp_l VARCHAR(15) NOT NULL,
+    alt_l VARCHAR(15) NOT NULL
 );
 
 CREATE VIEW user_view AS

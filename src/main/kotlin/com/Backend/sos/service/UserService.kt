@@ -76,13 +76,8 @@ class UserService{
             disabled = request.disable
             branch = branchUser
         }
-
-
-
-
         return userRepository.save(user)
     }
-
 
     fun DeleteUser (request: deleteUser): Boolean? {
          val respose = userRepository.findByUsername(request.username)?: throw Exception("El usuario no existe")

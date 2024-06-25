@@ -1,6 +1,7 @@
 package com.Backend.sos.controller
 
 import com.Backend.sos.dto.RegisterPatients
+import com.Backend.sos.dto.deleteUser
 import com.Backend.sos.model.Patients
 import com.Backend.sos.model.User
 import com.Backend.sos.service.PatientService
@@ -10,7 +11,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/patients")
+@RequestMapping("/pacientes")
 @CrossOrigin(methods = [RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH, RequestMethod.PUT], origins = ["http://localhost:3000"] )
 class PatientController {
     @Autowired
@@ -28,6 +29,11 @@ class PatientController {
     fun register (@RequestBody request: RegisterPatients):ResponseEntity<Patients>{
         val registerPatient = patientService.registerPatient(request)
         return  ResponseEntity.ok(registerPatient)
+    }
+
+    @DeleteMapping("/eliminar")
+    fun delete (@RequestBody request: deleteUser): Boolean?{
+        return patientService.DeletePatient(request)
     }
 
     @PutMapping
