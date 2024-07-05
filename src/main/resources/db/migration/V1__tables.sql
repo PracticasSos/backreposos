@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS frame(
 );
 
 CREATE TABLE IF NOT EXISTS lens(
+    id SERIAL PRIMARY KEY,
     lens_type VARCHAR(100), --tipo de lente (monofocal,bifocal, etc)
     lens_material VARCHAR(100), -- material del lente (plastico, policarbonato, cristal, etc)
     lens_coating VARCHAR(100), -- recubrimiento del lente(antireflejo, antirrayado)
