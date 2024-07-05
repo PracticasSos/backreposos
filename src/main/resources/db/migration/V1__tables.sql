@@ -30,10 +30,6 @@ CREATE TABLE IF NOT EXISTS users(
     FOREIGN KEY (role_id) REFERENCES role(id)
 );
 
-
-
-
-
 CREATE TABLE IF NOT EXISTS patients(
     user_id INT,
     id SERIAL PRIMARY KEY,
@@ -57,8 +53,8 @@ CREATE TABLE IF NOT EXISTS frame(
     brand  VARCHAR (100) NOT NULL,
     referenceBrand VARCHAR(40) NOT NULL ,
     size INT NOT NULL,
-    bridge VARCHAR (55) NOT NULL,  -- puente
-    model VARCHAR (100) NOT NULL, --model
+    bridge VARCHAR (55) NOT NULL, -- puente
+    model VARCHAR (100) NOT NULL, -- model
     color  VARCHAR (20) NOT NULL,
     price DECIMAL (10, 2)NOT NULL,
     frameStock INT NOT NULL
@@ -69,7 +65,7 @@ CREATE TABLE IF NOT EXISTS lens(
     lens_type VARCHAR(100), --tipo de lente (monofocal,bifocal, etc)
     lens_material VARCHAR(100), -- material del lente (plastico, policarbonato, cristal, etc)
     lens_coating VARCHAR(100), -- recubrimiento del lente(antireflejo, antirrayado)
-    lens_color  VARCHAR(100), --color de la lente (si aplica)
+    lens_color  VARCHAR(100), -- color de la lente (si aplica)
     lens_price DECIMAL (10,2), --precio de la lente
     lens_stock INT --cantidad de stock disponible
 );
@@ -77,24 +73,68 @@ CREATE TABLE IF NOT EXISTS lens(
 
 CREATE TABLE IF NOT EXISTS rx_uso(
     id SERIAL PRIMARY KEY,
-    id_user Int,
-    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE,
-    sphere_r VARCHAR(15) NOT NULL,
-    cylinder_r VARCHAR(15) NOT NULL,
-    axis_r VARCHAR(15) NOT NULL,
-    prism_r VARCHAR(15) NOT NULL,
-    add_r VARCHAR(15) NOT NULL,
-    av_vl_r VARCHAR(15) NOT NULL,
-    dnp_r VARCHAR(15) NOT NULL,
-    alt_r VARCHAR(15) NOT NULL,
-    sphere_l VARCHAR(15) NOT NULL,
-    cylinder_l VARCHAR(15) NOT NULL,
-    axis_l VARCHAR(15) NOT NULL,
-    prism_l VARCHAR(15) NOT NULL,
-    add_l VARCHAR(15) NOT NULL,
-    av_vl_l VARCHAR(15) NOT NULL,
-    dnp_l VARCHAR(15) NOT NULL,
-    alt_l VARCHAR(15) NOT NULL
+    patient_id Int,
+    FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
+    sphere_right VARCHAR(15) NOT NULL,
+    cylinder_right VARCHAR(15) NOT NULL,
+    axis_right VARCHAR(15) NOT NULL,
+    prism_right VARCHAR(15) NOT NULL,
+    add_right VARCHAR(15) NOT NULL,
+    av_vl_right VARCHAR(15) NOT NULL,
+    dnp_right VARCHAR(15) NOT NULL,
+    alt_right VARCHAR(15) NOT NULL,
+    sphere_left VARCHAR(15) NOT NULL,
+    cylinder_left VARCHAR(15) NOT NULL,
+    axis_left VARCHAR(15) NOT NULL,
+    prism_left VARCHAR(15) NOT NULL,
+    add_left VARCHAR(15) NOT NULL,
+    av_vl_left VARCHAR(15) NOT NULL,
+    dnp_left VARCHAR(15) NOT NULL,
+    alt_left VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS rx_recomended(
+    id SERIAL PRIMARY KEY,
+    patient_id Int,
+    FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
+    sphere_right VARCHAR(15) NOT NULL,
+    cylinder_right VARCHAR(15) NOT NULL,
+    axis_right VARCHAR(15) NOT NULL,
+    prism_right VARCHAR(15) NOT NULL,
+    add_right VARCHAR(15) NOT NULL,
+    av_vl_right VARCHAR(15) NOT NULL,
+    dnp_right VARCHAR(15) NOT NULL,
+    alt_rgiht VARCHAR(15) NOT NULL,
+    sphere_left VARCHAR(15) NOT NULL,
+    cylinder_left VARCHAR(15) NOT NULL,
+    axis_left VARCHAR(15) NOT NULL,
+    prism_left VARCHAR(15) NOT NULL,
+    add_left VARCHAR(15) NOT NULL,
+    av_vl_left VARCHAR(15) NOT NULL,
+    dnp_left VARCHAR(15) NOT NULL,
+    alt_left VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS rx_final(
+    id SERIAL PRIMARY KEY,
+    patient_id Int,
+    FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
+    sphere_right VARCHAR(15) NOT NULL,
+    cylinder_right VARCHAR(15) NOT NULL,
+    axis_right VARCHAR(15) NOT NULL,
+    prism_right VARCHAR(15) NOT NULL,
+    add_right VARCHAR(15) NOT NULL,
+    av_vl_right VARCHAR(15) NOT NULL,
+    dnp_right VARCHAR(15) NOT NULL,
+    alt_right VARCHAR(15) NOT NULL,
+    sphere_left VARCHAR(15) NOT NULL,
+    cylinder_left VARCHAR(15) NOT NULL,
+    axis_left VARCHAR(15) NOT NULL,
+    prism_left VARCHAR(15) NOT NULL,
+    add_left VARCHAR(15) NOT NULL,
+    av_vl_left VARCHAR(15) NOT NULL,
+    dnp_left VARCHAR(15) NOT NULL,
+    alt_left VARCHAR(15) NOT NULL
 );
 
 CREATE VIEW user_view AS

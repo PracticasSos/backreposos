@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "rx_use")
-class MedicalHistory {
+class RxUso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(updatable = false)
@@ -41,4 +41,6 @@ class MedicalHistory {
     var dnpL: String? = null
     @Column(name = "alt_l")
     var altL: String? = null
+    @Column(name = "id_user")
+    var idUser: Long? = null
 }
