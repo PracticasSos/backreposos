@@ -12,7 +12,7 @@ spring:
       classpath: db/migration
     sqlMigrationSuffixes: .sql
     baselineOnMigrate: true
-    sqlMigrationPrefix: V
+    sqlMigratiozlzmnPrefix: V
     schemas: public
 
   datasource:
