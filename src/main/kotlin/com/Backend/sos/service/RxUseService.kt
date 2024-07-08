@@ -24,7 +24,7 @@ class RxUseService {
     fun save(model: RxUso): RxUso{
 
         try {
-            patientRepository.findById(model.idUser)
+            patientRepository.findById(model.patientId)
                 ?: throw Exception("Id del cliente no encontrada")
             return rxUseRepository.save(model)
         }catch (ex : Exception){

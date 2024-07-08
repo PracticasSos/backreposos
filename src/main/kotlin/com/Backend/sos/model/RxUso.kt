@@ -3,44 +3,44 @@ package com.Backend.sos.model
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "rx_use")
+@Table(name = "rx_uso")
 class RxUso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(updatable = false)
     var id: Long? = null
+    @Column(name = "patient_id")
+    var patientId: Long? = null
     @Column(name = "sphere_right")
-    var sphereR: String? = null
+    var sphereRight: String? = null
     @Column(name = "cylinder_right")
-    var cylinderR: String? = null
+    var cylinderRight: String? = null
     @Column(name = "axis_right")
-    var axisR: String? = null
+    var axisRight: String? = null
     @Column(name = "prism_right")
-    var prismR: String? = null
+    var prismRight: String? = null
     @Column(name = "add_right")
-    var addR: String? = null
+    var addRight: String? = null
     @Column(name = "av_vl_right")
-    var avVlR: String? = null
+    var avVlRight: String? = null
     @Column(name = "dnp_right")
-    var dnpR: Int? = null
+    var dnpRight: String? = null
     @Column(name = "alt_right")
-    var altR: String? = null
+    var altRight: String? = null
     @Column(name = "sphere_left")
-    var sphereL: String? = null
+    var sphereLeft: String? = null
     @Column(name = "cylinder_left")
-    var cylinderL: String? = null
+    var cylinderLeft: String? = null
     @Column(name = "axis_left")
-    var axisL: String? = null
+    var axisLeft: String? = null
     @Column(name = "prism_left")
-    var prismL: String? = null
+    var prismLeft: String? = null
     @Column(name = "add_left")
-    var addL: String? = null
+    var addLeft: String? = null
     @Column(name = "av_vl_left")
-    var avVlL: String? = null
+    var avVlLeft: String? = null
     @Column(name = "dnp_left")
-    var dnpL: String? = null
+    var dnpLeft: String? = null
     @Column(name = "alt_left")
-    var altL: String? = null
-    @Column(name = "id_user")
-    var idUser: Long? = null
+    var altLeft: String? = null
 }
