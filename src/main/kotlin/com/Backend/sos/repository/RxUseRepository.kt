@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface RxUseRepository: JpaRepository<RxUso, Long> {
 
-    fun findById (id: Long?): Long?
+    fun findById (id: Long?): RxUso?
 }
