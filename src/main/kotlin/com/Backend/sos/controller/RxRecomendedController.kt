@@ -33,7 +33,7 @@ class RxRecomendedController {
         }.orElse(ResponseEntity.notFound().build())
     }
 
-    @PostMapping
+    @PostMapping("/angie")
     fun save(@RequestBody rxRecomended: RxRecomended): ResponseEntity<RxRecomended> {
         return ResponseEntity.status(HttpStatus.CREATED).body(rxRecomendedService.save(rxRecomended))
     }

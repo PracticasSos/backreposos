@@ -5,8 +5,6 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 
 @Entity
@@ -16,7 +14,8 @@ class RxRecomended {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
     var id: Long? = null
-
+    @Column(name = "patient_id")
+    var patient: Long? = null
     @Column(name = "sphere_right")
     var sphereRight: String? = null
 
@@ -64,8 +63,4 @@ class RxRecomended {
 
     @Column(name = "alt_left")
     var altLeft: String? = null
-
-    @ManyToOne
-    @JoinColumn(name = "patient_id")
-    var patient: Patients? = null
 }

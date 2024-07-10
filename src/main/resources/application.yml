@@ -16,7 +16,7 @@ spring:
     schemas: public
 
   datasource:
-    url: jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:6543/postgres
-    username: postgres.sjizxpwweaurekwknbmq
-    password: jMChFkgF0oE37ZNM
+    url: jdbc:postgresql://ruby.db.elephantsql.com:5432/tinzxbta?socketTimeout=3
+    username: tinzxbta
+    password: B5e4R_RV6sP9mtUtg8mBx-Kf6IJysWOI
     driverClassName: org.postgresql.Driver

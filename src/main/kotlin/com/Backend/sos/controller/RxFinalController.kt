@@ -31,7 +31,7 @@ class RxFinalController {
 
     }
 
-    @PostMapping("/rxFinal")
+    @PostMapping("/registro")
     fun register (@RequestBody request: RxFinal): ResponseEntity<RxFinal> {
         val registerPatient = rxFinalService.save(request)
         return  ResponseEntity.ok(registerPatient)

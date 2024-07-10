@@ -51,13 +51,13 @@ CREATE TABLE IF NOT EXISTS patients(
 CREATE TABLE IF NOT EXISTS frame(
     id SERIAL PRIMARY KEY,
     brand  VARCHAR (100) NOT NULL,
-    referenceBrand VARCHAR(40) NOT NULL ,
+    reference_brand VARCHAR(40) NOT NULL ,
     size INT NOT NULL,
     bridge VARCHAR (55) NOT NULL, -- puente
     model VARCHAR (100) NOT NULL, -- model
     color  VARCHAR (20) NOT NULL,
     price DECIMAL (10, 2)NOT NULL,
-    frameStock INT NOT NULL
+    frame_stock INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS lens(
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS rx_recomended(
     add_right VARCHAR(15) NOT NULL,
     av_vl_right VARCHAR(15) NOT NULL,
     dnp_right VARCHAR(15) NOT NULL,
-    alt_rgiht VARCHAR(15) NOT NULL,
+    alt_right VARCHAR(15) NOT NULL,
     sphere_left VARCHAR(15) NOT NULL,
     cylinder_left VARCHAR(15) NOT NULL,
     axis_left VARCHAR(15) NOT NULL,
@@ -157,3 +157,4 @@ FROM
     patients
            INNER JOIN
     users ON patients.user_id = users.id
+

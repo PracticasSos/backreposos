@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
 @Controller
-@RequestMapping("/historia")
+@RequestMapping("/rx-en-uso")
 class RxUseController {
 
     @Autowired
@@ -31,7 +31,7 @@ class RxUseController {
 
     }
 
-    @PostMapping("/rxUso")
+    @PostMapping("/registro")
     fun register (@RequestBody request: RxUso): ResponseEntity<RxUso> {
         val registerPatient = rxUseService.save(request)
         return  ResponseEntity.ok(registerPatient)
