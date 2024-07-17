@@ -11,6 +11,4 @@ class Roles {
 
     @Column(name = "role_name")
     var roleName: String? = null
-
-
 }

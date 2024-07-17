@@ -13,10 +13,10 @@ class RegisterRequest { //Captura los datos de registro del usuario
     var email: String? = null
     var phone_number: String? = null
     var password: String? = null
-    var roleNam: String? = null
+    var roleNam: Long? = null
     var locked: Boolean? = null
     var disable: Boolean? = null
-    var nameBr: String? = null
+    var nameBr: Long? = null
 }
 
 

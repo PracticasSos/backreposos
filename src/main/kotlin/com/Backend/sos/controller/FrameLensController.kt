@@ -1,5 +1,6 @@
 package com.Backend.sos.controller
 
+import com.Backend.sos.dto.FrameLensRequest
 import com.Backend.sos.model.Frame
 import com.Backend.sos.model.Lens
 import com.Backend.sos.service.FrameLensService
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*
 
 @Controller
 @RequestMapping("/Inventario")
+@CrossOrigin(methods = [RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH, RequestMethod.PUT], origins = ["http://localhost:3000"] )
 class FrameLensController {
 
     @Autowired
@@ -21,7 +23,7 @@ class FrameLensController {
 
         return frameLensService.list()?.let {
             ResponseEntity(it, HttpStatus.OK)
-        } ?: ResponseEntity<Frame>( HttpStatus.NOT_FOUND)
+        } ?: ResponseEntity<FrameLensRequest>( HttpStatus.NOT_FOUND)
     }
 
     @GetMapping("/{id}")
@@ -30,16 +32,10 @@ class FrameLensController {
 
     }
 
-    @PostMapping("/armazon")
-    fun register (@RequestBody request: Frame): ResponseEntity<Frame> {
-        val registerPatient = frameLensService.save(request)
-        return  ResponseEntity.ok(registerPatient)
-    }
-
-    @PostMapping("/lunas")
-    fun registerLens (@RequestBody request: Lens): ResponseEntity<Lens> {
-        val registerLens = frameLensService.saveLens(request)
-        return  ResponseEntity.ok(registerLens)
+    @PostMapping
+    fun register (@RequestBody request: FrameLensRequest): ResponseEntity<FrameLensRequest> {
+        val registerPatient = frameLensService.saveFrameAndLens(request)
+        return ResponseEntity.ok(registerPatient)
     }
 
     @PutMapping("/armazón/{id}")

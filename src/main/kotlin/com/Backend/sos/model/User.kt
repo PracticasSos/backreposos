@@ -32,9 +32,9 @@ class User {
     var locked: Boolean? = null
     var disabled: Boolean? = null
     @OneToOne
-    @JoinColumn(name = "branch_id")
+    @JoinColumn(name = "branch_id", referencedColumnName = "id", insertable=false, updatable=false)
     var branch: Branch? = null
     @ManyToOne
-    @JoinColumn(name = "role_id")
-    lateinit var role: Roles
+    @JoinColumn(name = "role_id", referencedColumnName = "id", insertable=false, updatable=false)
+    var role: Roles? = null
 }

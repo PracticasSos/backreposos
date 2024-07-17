@@ -5,18 +5,13 @@ import com.Backend.sos.service.RxRecomendedService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("/api/rx-recomended")
+@CrossOrigin(methods = [RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH, RequestMethod.PUT], origins = ["http://localhost:3000"] )
+
 class RxRecomendedController {
     @Autowired
     lateinit var rxRecomendedService: RxRecomendedService
@@ -33,7 +28,7 @@ class RxRecomendedController {
         }.orElse(ResponseEntity.notFound().build())
     }
 
-    @PostMapping("/angie")
+    @PostMapping
     fun save(@RequestBody rxRecomended: RxRecomended): ResponseEntity<RxRecomended> {
         return ResponseEntity.status(HttpStatus.CREATED).body(rxRecomendedService.save(rxRecomended))
     }

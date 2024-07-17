@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*
 
 @Controller
 @RequestMapping("/rx-en-uso")
+@CrossOrigin(methods = [RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH, RequestMethod.PUT], origins = ["http://localhost:3000"] )
+
 class RxUseController {
 
     @Autowired

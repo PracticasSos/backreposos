@@ -46,14 +46,16 @@ class UserService{
         }
 
         val roleName = request.roleNam ?: throw IllegalArgumentException("El nombre del rol es obligatorio.")
-        val roleUser = roleRepository.findByRoleName(roleName)
+        val roleUser = roleRepository.findById(roleName)
+            .orElseThrow { IllegalArgumentException("El rol especificado no existe: $roleName") }
 
         if (roleUser == null) {
             throw IllegalArgumentException("El rol especificado no existe: $roleName")
         }
 
         val brachRegister = request.nameBr ?: throw IllegalArgumentException("La sucursal es obligatioria.")
-        val branchUser = branchRepository.findByNameBranch(brachRegister)
+        val branchUser = branchRepository.findById(brachRegister)
+            .orElseThrow { IllegalArgumentException("La rama asignada no existe: $brachRegister") }
         if (branchUser == null){
             throw IllegalArgumentException("La rama asignada no existe $brachRegister")
         }
@@ -78,6 +80,8 @@ class UserService{
         }
         return userRepository.save(user)
     }
+
+
 
     fun DeleteUser (request: deleteUser): Boolean? {
          val respose = userRepository.findByUsername(request.username)?: throw Exception("El usuario no existe")
