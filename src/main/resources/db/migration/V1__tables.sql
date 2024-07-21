@@ -61,15 +61,14 @@ CREATE TABLE IF NOT EXISTS frame(
 );
 
 CREATE TABLE IF NOT EXISTS lens(
-    id SERIAL PRIMARY KEY,
-    lens_type VARCHAR(100), --tipo de lente (monofocal,bifocal, etc)
-    lens_material VARCHAR(100), -- material del lente (plastico, policarbonato, cristal, etc)
-    lens_coating VARCHAR(100), -- recubrimiento del lente(antireflejo, antirrayado)
-    lens_color  VARCHAR(100), -- color de la lente (si aplica)
-    lens_price DECIMAL (10,2), --precio de la lente
-    lens_stock INT --cantidad de stock disponible
+    id            SERIAL PRIMARY KEY,
+    lens_type     VARCHAR(100),   --tipo de lente (monofocal,bifocal, etc)
+    lens_material VARCHAR(100),   -- material del lente (plastico, policarbonato, cristal, etc)
+    lens_coating  VARCHAR(100),   -- recubrimiento del lente(antireflejo, antirrayado)
+    lens_color    VARCHAR(100),   -- color de la lente (si aplica)
+    lens_price    DECIMAL(10, 2), --precio de la lente
+    lens_stock    INT             --cantidad de stock disponiblemejorará significativamente la eficiencia operativa al automatizar y digitalizar la gestión de información, inventarios y facturación, reduciendo errores humanos y permitiendo un acceso seguro y en tiempo real a los datos. Esta modernización optimizará el proceso de facturación, incrementará la seguridad y protección de datos, y liberará espacio físico, creando un entorno de trabajo más ordenado y eficiente, lo que fortalecerá la capacidad de respuesta y la calidad del servicio ofrecido a los pacientes.
 );
-
 
 CREATE TABLE IF NOT EXISTS rx_uso(
     id SERIAL PRIMARY KEY,

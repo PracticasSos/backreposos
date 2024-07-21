@@ -84,29 +84,11 @@ class UserService{
 
 
     fun DeleteUser (request: deleteUser): Boolean? {
-         val respose = userRepository.findByUsername(request.username)?: throw Exception("El usuario no existe")
+         val respose = userRepository.findById(request.username)?: throw Exception("El usuario no existe")
         userRepository.delete(respose)
         return true
     }
 
-    fun updateRecords(firstname: String, model: User): User {
-        val allUsers = userRepository.findAll()
-        val user = allUsers.find { it.firstname == firstname }
-            ?: throw Exception("Usuario con el nombre $firstname no se registró")
-
-        user.apply {
-            if (model.firstname != null) this.firstname = model.firstname
-            if (model.lastname != null) this.lastname = model.lastname
-            if (model.charge != null) this.charge = model.charge
-            if (model.birthdate != null) this.birthdate = model.birthdate
-            if (model.checkInDate != null) this.checkInDate = model.checkInDate
-            if (model.ci != null) this.ci = model.ci
-            if (model.email != null) this.email = model.email
-            if (model.phoneNumber != null) this.phoneNumber = model.phoneNumber
-            if (model.age != null) this.age = model.age
-        }
-        return userRepository.save(user)
-    }
 
  /*   @Override
     @Throws(UsernameNotFoundException::class)

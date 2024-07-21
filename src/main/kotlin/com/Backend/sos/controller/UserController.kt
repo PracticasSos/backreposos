@@ -2,8 +2,6 @@ package com.Backend.sos.controller
 
 
 import com.Backend.sos.dto.*
-import com.Backend.sos.model.Branch
-import com.Backend.sos.model.Roles
 import com.Backend.sos.model.User
 import com.Backend.sos.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -41,13 +39,4 @@ class UserController {
     }
 
 
-    @PatchMapping("/{firstname}")
-    fun updateRecords(@PathVariable firstname: String, @RequestBody model: User): ResponseEntity<User> {
-        return try {
-            val updatedUser = userService.updateRecords(firstname, model)
-            ResponseEntity.ok(updatedUser)
-        } catch (e: Exception) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(null)
-        }
-    }
 }
