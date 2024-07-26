@@ -1,6 +1,5 @@
 package com.Backend.sos.repository
 
-import com.Backend.sos.model.Patients
 import com.Backend.sos.model.User
 import org.springframework.data.jpa.repository.JpaRepository
 

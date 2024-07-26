@@ -1,6 +1,7 @@
 package com.Backend.sos.controller
 
 import com.Backend.sos.dto.FrameLensRequest
+import com.Backend.sos.dto.ProductResponse
 import com.Backend.sos.model.Frame
 import com.Backend.sos.model.Lens
 import com.Backend.sos.service.FrameLensService
@@ -10,7 +11,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
-@Controller
+@RestController
 @RequestMapping("/Inventario")
 @CrossOrigin(methods = [RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH, RequestMethod.PUT], origins = ["http://localhost:3000"] )
 class FrameLensController {
@@ -19,12 +20,11 @@ class FrameLensController {
     lateinit var frameLensService: FrameLensService
 
     @GetMapping
-    fun login(): ResponseEntity<*> {
-
-        return frameLensService.list()?.let {
-            ResponseEntity(it, HttpStatus.OK)
-        } ?: ResponseEntity<FrameLensRequest>( HttpStatus.NOT_FOUND)
+    fun obtenerProductos(): List<ProductResponse> {
+        return frameLensService.obtenerProductos()
     }
+
+
 
     @GetMapping("/{id}")
     fun listById (@PathVariable("id") id: Long): ResponseEntity<*> {
@@ -32,25 +32,30 @@ class FrameLensController {
 
     }
 
-    @PostMapping
+    @PostMapping("/guardar")
     fun register (@RequestBody request: FrameLensRequest): ResponseEntity<FrameLensRequest> {
         val registerPatient = frameLensService.saveFrameAndLens(request)
         return ResponseEntity.ok(registerPatient)
     }
 
     @PutMapping("/armazón/{id}")
-    fun update (@RequestBody modelo: Frame): ResponseEntity<Frame> {
+    fun update (@RequestBody modelo: FrameLensRequest): ResponseEntity<FrameLensRequest> {
         return ResponseEntity(frameLensService.update(modelo), HttpStatus.OK)
-    }
-
-    @PutMapping("/luna/{id}")
-    fun updateLens (@RequestBody modelo: Lens): ResponseEntity<Lens> {
-        return ResponseEntity(frameLensService.updateLens(modelo), HttpStatus.OK)
     }
 
 
     @DeleteMapping("/delete/{id}")
     fun delete (@PathVariable("id") id: Long):Boolean?{
         return frameLensService.delete(id)
+    }
+
+    @PatchMapping("/update-frame")
+    fun updateData(@RequestBody model: Frame): ResponseEntity<Frame>{
+        return  ResponseEntity(frameLensService.updateDaes(model),HttpStatus.OK)
+    }
+
+    @PatchMapping("/update-lens")
+    fun updateDataLens (@RequestBody model: Lens): ResponseEntity<Lens>{
+        return  ResponseEntity(frameLensService.updatesLens(model),HttpStatus.OK)
     }
 }

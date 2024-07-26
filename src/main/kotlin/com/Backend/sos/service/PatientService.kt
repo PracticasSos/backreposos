@@ -1,7 +1,6 @@
 package com.Backend.sos.service
 
 import com.Backend.sos.dto.RegisterPatients
-import com.Backend.sos.dto.deleteUser
 import com.Backend.sos.model.Patients
 import com.Backend.sos.repository.PatientRepository
 import com.Backend.sos.repository.UserRepository
@@ -57,8 +56,8 @@ class PatientService {
         return  patientRepository.save(patient)
     }
 
-    fun DeletePatient (request: deleteUser): Boolean? {
-        val respose = patientRepository.findByPtFirstname(request.username)?: throw Exception("El usuario no existe")
+    fun DeletePatient (request: Patients): Boolean? {
+        val respose = patientRepository.findById(request.id)?: throw Exception("El usuario no existe")
         patientRepository.delete(respose)
         return true
     }

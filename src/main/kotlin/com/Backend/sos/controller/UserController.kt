@@ -34,7 +34,7 @@ class UserController {
     }
 
     @DeleteMapping("/delete")
-    fun delete (@RequestBody request: deleteUser): Boolean?{
+    fun delete (@RequestBody request: User): Boolean?{
         return userService.DeleteUser(request)
     }
 

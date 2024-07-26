@@ -2,7 +2,6 @@ package com.Backend.sos.service
 
 
 import com.Backend.sos.dto.RegisterRequest
-import com.Backend.sos.dto.deleteUser
 import com.Backend.sos.model.User
 import com.Backend.sos.repository.BranchRepository
 import com.Backend.sos.repository.RoleRepository
@@ -30,14 +29,6 @@ class UserService{
         return userRepository.findAll()
     }
 
-    fun save (model: User): User{
-        try{
-            return userRepository.save(model)
-        }
-        catch (ex:Exception){
-            throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
-        }
-    }
 
 
     fun register(request: RegisterRequest): User {
@@ -83,8 +74,8 @@ class UserService{
 
 
 
-    fun DeleteUser (request: deleteUser): Boolean? {
-         val respose = userRepository.findById(request.username)?: throw Exception("El usuario no existe")
+    fun DeleteUser (request:   User): Boolean? {
+         val respose = userRepository.findById(request.id)?: throw Exception("El usuario no existe")
         userRepository.delete(respose)
         return true
     }

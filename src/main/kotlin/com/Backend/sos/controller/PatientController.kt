@@ -1,7 +1,6 @@
 package com.Backend.sos.controller
 
 import com.Backend.sos.dto.RegisterPatients
-import com.Backend.sos.dto.deleteUser
 import com.Backend.sos.model.Patients
 import com.Backend.sos.model.User
 import com.Backend.sos.service.PatientService
@@ -32,7 +31,7 @@ class PatientController {
     }
 
     @DeleteMapping("/eliminar")
-    fun delete (@RequestBody request: deleteUser): Boolean?{
+    fun delete (@RequestBody request: Patients): Boolean?{
         return patientService.DeletePatient(request)
     }
 
