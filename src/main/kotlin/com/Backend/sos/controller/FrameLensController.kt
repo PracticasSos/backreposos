@@ -20,8 +20,8 @@ class FrameLensController {
     lateinit var frameLensService: FrameLensService
 
     @GetMapping
-    fun obtenerProductos(): List<ProductResponse> {
-        return frameLensService.obtenerProductos()
+    fun obtenerProductos(): List<Lens> {
+        return frameLensService.listLens()
     }
 
 
@@ -32,22 +32,17 @@ class FrameLensController {
 
     }
 
-    @PostMapping("/guardar")
-    fun register (@RequestBody request: FrameLensRequest): ResponseEntity<FrameLensRequest> {
-        val registerPatient = frameLensService.saveFrameAndLens(request)
+    @PostMapping("/guardar-armazón")
+    fun register (@RequestBody request: Frame): ResponseEntity<Frame> {
+        val registerPatient = frameLensService.saveFrame(request)
+        return ResponseEntity.ok(registerPatient)
+    }
+    @PostMapping("/guardar-lentes")
+    fun register (@RequestBody request: Lens): ResponseEntity<Lens> {
+        val registerPatient = frameLensService.savaLens(request)
         return ResponseEntity.ok(registerPatient)
     }
 
-    @PutMapping("/armazón/{id}")
-    fun update (@RequestBody modelo: FrameLensRequest): ResponseEntity<FrameLensRequest> {
-        return ResponseEntity(frameLensService.update(modelo), HttpStatus.OK)
-    }
-
-
-    @DeleteMapping("/delete/{id}")
-    fun delete (@PathVariable("id") id: Long):Boolean?{
-        return frameLensService.delete(id)
-    }
 
     @PatchMapping("/update-frame")
     fun updateData(@RequestBody model: Frame): ResponseEntity<Frame>{
@@ -58,4 +53,15 @@ class FrameLensController {
     fun updateDataLens (@RequestBody model: Lens): ResponseEntity<Lens>{
         return  ResponseEntity(frameLensService.updatesLens(model),HttpStatus.OK)
     }
+
+    @DeleteMapping("/delete-armazón/{id}")
+    fun delete (@PathVariable("id") id: Long):Boolean?{
+        return frameLensService.delete(id)
+    }
+
+    @DeleteMapping("/delete-Lunas/{id}")
+    fun delete (@PathVariable("id") id: Long?):Boolean?{
+        return frameLensService.deleteLens(id)
+    }
+
 }

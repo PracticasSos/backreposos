@@ -1,6 +1,5 @@
 package com.Backend.sos.service
 
-import com.Backend.sos.model.RxRecomended
 import com.Backend.sos.model.RxUso
 import com.Backend.sos.repository.PatientRepository
 import com.Backend.sos.repository.RxUseRepository

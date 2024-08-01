@@ -51,11 +51,12 @@ CREATE TABLE IF NOT EXISTS patients(
 CREATE TABLE IF NOT EXISTS frame(
     id SERIAL PRIMARY KEY,
     brand  VARCHAR (100) NOT NULL,
-    reference_brand VARCHAR(40) NOT NULL ,
+    reference VARCHAR(40) NOT NULL ,
     size INT NOT NULL,
     bridge VARCHAR (55) NOT NULL, -- puente
     model VARCHAR (100) NOT NULL, -- model
-    color  VARCHAR (20) NOT NULL,
+    color  VARCHAR (50) NOT NULL,
+    rod VARCHAR (25) NOT NULL, -- Varilla
     price DECIMAL (10, 2)NOT NULL,
     frame_stock INT NOT NULL
 );
@@ -64,10 +65,9 @@ CREATE TABLE IF NOT EXISTS lens(
     id            SERIAL PRIMARY KEY,
     lens_type     VARCHAR(100),   --tipo de lente (monofocal,bifocal, etc)
     lens_material VARCHAR(100),   -- material del lente (plastico, policarbonato, cristal, etc)
-    lens_coating  VARCHAR(100),   -- recubrimiento del lente(antireflejo, antirrayado)
+    lens_description  VARCHAR(100),   -- recubrimiento del lente(antireflejo, antirrayado)
     lens_color    VARCHAR(100),   -- color de la lente (si aplica)
-    lens_price    DECIMAL(10, 2), --precio de la lente
-    lens_stock    INT             --cantidad de stock disponiblemejorará significativamente la eficiencia operativa al automatizar y digitalizar la gestión de información, inventarios y facturación, reduciendo errores humanos y permitiendo un acceso seguro y en tiempo real a los datos. Esta modernización optimizará el proceso de facturación, incrementará la seguridad y protección de datos, y liberará espacio físico, creando un entorno de trabajo más ordenado y eficiente, lo que fortalecerá la capacidad de respuesta y la calidad del servicio ofrecido a los pacientes.
+    lens_price    DECIMAL(10, 2) --precio de la lente
 );
 
 CREATE TABLE IF NOT EXISTS rx_uso(
@@ -92,27 +92,6 @@ CREATE TABLE IF NOT EXISTS rx_uso(
     alt_left VARCHAR(15) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS rx_recomended(
-    id SERIAL PRIMARY KEY,
-    patient_id Int,
-    FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
-    sphere_right VARCHAR(15) NOT NULL,
-    cylinder_right VARCHAR(15) NOT NULL,
-    axis_right VARCHAR(15) NOT NULL,
-    prism_right VARCHAR(15) NOT NULL,
-    add_right VARCHAR(15) NOT NULL,
-    av_vl_right VARCHAR(15) NOT NULL,
-    dnp_right VARCHAR(15) NOT NULL,
-    alt_right VARCHAR(15) NOT NULL,
-    sphere_left VARCHAR(15) NOT NULL,
-    cylinder_left VARCHAR(15) NOT NULL,
-    axis_left VARCHAR(15) NOT NULL,
-    prism_left VARCHAR(15) NOT NULL,
-    add_left VARCHAR(15) NOT NULL,
-    av_vl_left VARCHAR(15) NOT NULL,
-    dnp_left VARCHAR(15) NOT NULL,
-    alt_left VARCHAR(15) NOT NULL
-);
 
 CREATE TABLE IF NOT EXISTS rx_final(
     id SERIAL PRIMARY KEY,

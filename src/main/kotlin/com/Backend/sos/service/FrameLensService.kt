@@ -24,109 +24,56 @@ class FrameLensService {
     @Autowired
     lateinit var lensRepository: LensRepository
 
-    fun obtenerProductos(): List<ProductResponse> {
-        val lenses = lensRepository.findAll().map { lens ->
-            ProductResponse(
-                id = lens.id,
-                tipo = "Lens",
-                descripcion = "${lens.lensType} - ${lens.lensMaterial}",
-                precio = lens.lensPrice
-            )
-        }
-
-        val frames = frameRepository.findAll().map { frame ->
-            ProductResponse(
-                id = frame.Id,
-                tipo = "Frame",
-                descripcion = "${frame.brand} - ${frame.model}",
-                precio = frame.price
-            )
-        }
-    return lenses + frames
-}
-
     fun listById(id: Long?): Frame? {
-        return frameRepository.findById(id)}
+        return frameRepository.findById(id)
+    }
+
+    fun  listLens(): List <Lens>{
+        return lensRepository.findAll()
+    }
+
+
+    fun savaLens(model: Lens): Lens{
+        model.lensType?.takeIf { it.trim().isNotEmpty() }
+            ?: throw Exception("Nombres no debe ser vacio")
+        model.lensMaterial?.takeIf { it.trim(). isNotEmpty() } ?: throw Exception ("Debe especificar el material o asignarlo como vacío")
+        model.lensDescription?.takeIf { it.trim(). isNotEmpty() } ?: throw Exception ("Debe tener una descripción")
+        model.lensColor?.takeIf { it.trim(). isNotEmpty() } ?: throw Exception ("Se debe especificar el color")
+        model.lensPrice?.takeIf { it > 0.0 } ?: throw Exception ("El precio no puede ser de un valor 0")
+
+        return lensRepository.save(model)
+    }
 
 
 
-
-    fun saveFrameAndLens(request: FrameLensRequest): FrameLensRequest {
-        request.frame.brand?.takeIf { it.trim().isNotEmpty() }
+    fun saveFrame(request: Frame): Frame {
+        try{
+        request.brand?.takeIf { it.trim().isNotEmpty() }
             ?: throw Exception("Debe tener un marco")
-        request.frame.referenceBrand!!.takeIf { it.trim().isNotEmpty() }
+        request.reference!!.takeIf { it.trim().isNotEmpty() }
             ?: throw Exception("el marco de referencia no debe estar vacío")
-        request.frame.size!!.takeIf { it > 0 }
+        request.size!!.takeIf { it > 0 }
             ?: throw Exception("No hay un tamaño especificado")
-        request.frame.bridge!!.takeIf { it.trim().isNotEmpty() }
+        request.bridge!!.takeIf { it.trim().isNotEmpty() }
             ?: throw Exception("No hay un puente")
-        request.frame.model!!.takeIf { it.trim().isNotEmpty() }
+        request.model!!.takeIf { it.trim().isNotEmpty() }
             ?: throw Exception("No se específico el modelo")
-        request.frame.color!!.takeIf { it.trim().isNotEmpty() }
+        request.color!!.takeIf { it.trim().isNotEmpty() }
             ?: throw Exception("Color no especificado")
-        request.frame.price?.takeIf { it > 0.0 }
+        request.rod!!.takeIf { it.trim().isNotEmpty() }
+            ?: throw Exception("Color no especificado")
+        request.price?.takeIf { it > 0.0 }
             ?: throw Exception("El precio es obligatorio")
-        if (request.frame.frameStock?.takeIf { it == 0 } != null) {
+        if (request.frameStock?.takeIf { it == 0 } != null) {
             throw Exception("El numero de producto está vacío")
-        } else if (request.frame.frameStock?.takeIf { it > 1000 } != null) {
+        } else if (request.frameStock?.takeIf { it > 1000 } != null) {
             throw Exception("EL número excede la cantidad permitida")
         }
-        request.lens.lensType?.takeIf { it.trim().isNotEmpty() }
-            ?: throw Exception("El tipo de lente está vacío")
-        request.lens.lensMaterial!!.takeIf { it.trim().isNotEmpty() }
-            ?: throw Exception("El material esta vació o no?")
-        request.lens.lensCoating!!.takeIf { it.trim().isNotEmpty() }
-            ?: throw Exception("Recubrimiento si especificar")
-        request.lens.lensColor!!.takeIf { it.trim().isNotEmpty() }
-            ?: throw Exception("Color no especificado")
-        request.lens.lensPrice!!.takeIf { it > 0.0 }
-            ?: throw Exception("Precio no especificado ")
-        if (request.lens.lensStock?.takeIf { it == 0 } != null) {
-            throw Exception("El numero de producto está vacío")
-        } else if (request.lens.lensStock?.takeIf { it > 1000 } != null) {
-            throw Exception("EL número excede la cantidad permitida")
-        }
-
-
-        try {
-            val savedFrame = frameRepository.save(request.frame)
-            val savedLens = lensRepository.save(request.lens)
-            return FrameLensRequest(savedLens, savedFrame)
-
+            return frameRepository.save(request)
         } catch (ex: Exception) {
             throw ResponseStatusException(
                 HttpStatus.NOT_FOUND, ex.message, ex
             )
-        }
-
-
-    }
-
-    fun deleteLens(id: Long?): Boolean? {
-        try {
-            val response = lensRepository.findById(id)
-                ?: throw Exception("ID no existe")
-            lensRepository.deleteById(id!!)
-            return true
-        } catch (ex: Exception) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, ex.message)
-        }
-    }
-
-
-    fun update(model: FrameLensRequest): FrameLensRequest {
-        try {
-            frameRepository.findById(model.frame.Id)
-                ?: throw Exception("ID no existe")
-            lensRepository.findById(model.lens.id)
-                ?: throw Exception("ID no existe")
-
-            val updateFrame = frameRepository.save(model.frame)
-            val updateLens = lensRepository.save(model.lens)
-
-            return FrameLensRequest(updateLens, updateFrame)
-        } catch (ex: Exception) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, ex.message)
         }
     }
 
@@ -136,7 +83,7 @@ class FrameLensService {
                 ?:throw Exception("ID no existe")
             response.apply {
                 brand = model.brand
-                referenceBrand = model.referenceBrand
+                reference = model.reference
                 size = model.size
                 bridge = model.bridge
                 color = model.color
@@ -157,10 +104,9 @@ class FrameLensService {
             respuesta.apply {
                 lensType = model.lensType
                 lensMaterial = model.lensMaterial
-                lensCoating = model.lensCoating
+                lensDescription = model.lensDescription
                 lensColor = model.lensColor
                 lensPrice = model.lensPrice
-                lensStock = model.lensStock
             }
             return lensRepository.save(respuesta)
         }catch (ex: Exception){
@@ -173,6 +119,18 @@ class FrameLensService {
             val response = frameRepository.findById(id)
                 ?: throw Exception("ID no existe")
             frameRepository.deleteById(id!!)
+            return true
+        }
+        catch (ex:Exception){
+            throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
+        }
+    }
+
+    fun deleteLens (id: Long?):Boolean?{
+        try{
+            val response = lensRepository.findById(id)
+                ?: throw Exception("ID no existe")
+            lensRepository.deleteById(id!!)
             return true
         }
         catch (ex:Exception){

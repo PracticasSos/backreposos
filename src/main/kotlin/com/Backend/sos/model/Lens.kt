@@ -13,12 +13,10 @@ class Lens {
     var lensType: String? = null
     @Column(name = "lens_material")
     var lensMaterial: String? = null
-    @Column(name = "lens_coating")
-    var lensCoating: String? = null
+    @Column(name = "lens_description")
+    var lensDescription: String? = null
     @Column(name = "lens_color")
     var lensColor: String? = null
     @Column(name = "lens_price")
     var lensPrice: Double? = null
-    @Column(name = "lens_stock")
-    var lensStock: Int? = null
 }
