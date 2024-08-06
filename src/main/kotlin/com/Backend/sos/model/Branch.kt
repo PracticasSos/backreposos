@@ -11,4 +11,9 @@ class Branch {
 
     @Column(name = "name_branch")
     var nameBranch: String? = null
+    @Column(name = "address_branch")
+    var addressBranch: String? = null
+    var email: String? = null
+    var ruc: String? = null
+    var tlf: String? = null
 }

@@ -61,24 +61,5 @@ class PatientService {
         patientRepository.delete(respose)
         return true
     }
-   /* fun updatePatient(ptFirstname: String, model: Patients): Patients{
-            val allPatients = patientRepository.findAll()
-            val patient = allPatients.find {it.ptFirstname == ptFirstname}
-                ?:throw  Exception("Usuaro con el nombre $ptFirstname no se encuentra")
 
-            patient.apply {
-                if (model.ptFirstname != null) this.ptFirstname = model.ptFirstname
-                if (model.ptLastname != null) this.ptLastname = model.ptLastname
-                if (model.ptOccupation != null) this.ptOccupation = model.ptOccupation
-                if (model.ptAddress != null) this.ptAddress = model.ptAddress
-                if (model.ptPhone != null) this.ptPhone = model.ptPhone
-                if (model.ptAge != null) this.ptAge = model.ptAge
-                if (model.ptCi != null) this.ptCi = model.ptCi
-                if (model.ptCity != null) this.ptCity = model.ptCity
-                if (model.ptEmail != null) this.ptEmail = model.ptEmail
-                if (model.ptConsultationReason != null) this.ptConsultationReason = model.ptConsultationReason
-                if (model.ptRecommendations != null) this.ptRecommendations = model.ptRecommendations
-            }
-            return patientRepository.save(patient)
-    }*/
 }

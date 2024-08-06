@@ -1,6 +1,10 @@
 CREATE TABLE IF NOT EXISTS branch(
     id SERIAL PRIMARY KEY,
-    name_branch VARCHAR(40) NOT NULL
+    name_branch VARCHAR(40) NOT NULL UNIQUE ,
+    address_branch VARCHAR(40) NOT NULL,
+    email VARCHAR(40) NOT NULL,
+    ruc VARCHAR (15) NOT NULL UNIQUE ,
+    tlf VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS role(
