@@ -36,6 +36,7 @@ class RxFinalService {
                 HttpStatus.NOT_FOUND, ex.message, ex)
         }
     }
+
     fun update(model: RxFinal): RxFinal{
         try {
             patientRepository.findById(model.id)

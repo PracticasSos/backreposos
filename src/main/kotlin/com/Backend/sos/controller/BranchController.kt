@@ -34,4 +34,11 @@ class BranchController {
     fun updateDate(@RequestBody branch: Branch): ResponseEntity<Branch>{
         return  ResponseEntity(branchService.updateDate(branch),HttpStatus.OK)
     }
+
+    @GetMapping("/{id}")
+    fun listById (@PathVariable("id") id: Long): ResponseEntity<*>{
+        return ResponseEntity(branchService.listById (id), HttpStatus.OK)
+
+    }
+
 }

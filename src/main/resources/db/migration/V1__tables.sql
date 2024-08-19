@@ -116,7 +116,14 @@ CREATE TABLE IF NOT EXISTS rx_final(
     add_left VARCHAR(15) NOT NULL,
     av_vl_left VARCHAR(15) NOT NULL,
     dnp_left VARCHAR(15) NOT NULL,
-    alt_left VARCHAR(15) NOT NULL
+    alt_left VARCHAR(15) NOT NULL,
+    diagnostic VARCHAR(250) NOT NULL,
+    close_vision BOOLEAN NOT NULL DEFAULT TRUE,
+    require_lenses BOOLEAN NOT NULL DEFAULT FALSE,
+    distant_vision BOOLEAN NOT NULL DEFAULT TRUE,
+    require_lenses_distant BOOLEAN NOT NULL DEFAULT FALSE,
+    color_perception BOOLEAN NOT NULL DEFAULT FALSE,
+    description VARCHAR(50) NOT NULL
 );
 
 CREATE VIEW user_view AS

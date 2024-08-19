@@ -43,4 +43,16 @@ class RxFinal {
     var dnpLeft: String? = null
     @Column(name = "alt_left")
     var altLeft: String? = null
+    var diagnostic: String? = null
+    @Column(name = "close_vision")
+    var closeVision: Boolean = false
+    @Column(name = "require_lenses")
+    var requireLenses: Boolean= false
+    @Column(name = "distant_vision")
+    var distantVision: Boolean = false
+    @Column(name = "require_lenses_distant")
+    var requireLensesDistant: Boolean = false
+    @Column(name = "color_perception")
+    var colorPerception: Boolean = false
+    var description: String? = null
 }

@@ -16,6 +16,10 @@ class BranchService {
         return branchRepository.findAll()
     }
 
+    fun listById(id: Long?): Branch?{
+        return branchRepository.findById(id)
+    }
+
     fun save(branch: Branch): Branch{
         try{
             return branchRepository.save(branch)
@@ -53,6 +57,7 @@ class BranchService {
             throw  ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
     }
+
 
 
 }
