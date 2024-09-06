@@ -135,6 +135,7 @@ CREATE TABLE IF NOT EXISTS Sale(
     user_id SERIAL,
     lead_time DATE,
     discount DECIMAL(10,2),
+    quantity Int NOT NULL,
     total_price DECIMAL(10,2),
     balance DECIMAL(10,2),
     advance_payment DECIMAL(10,2),

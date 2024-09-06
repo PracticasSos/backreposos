@@ -25,6 +25,7 @@ class Sale {
     var frameId: Long? = null
     @Column(name = "user_id")
     var userId: Long? = null
+    var quantity: Int? = null
     @Column(name = "lead_time")
     var leadTime: Date? = null
     var discount: Double? = null

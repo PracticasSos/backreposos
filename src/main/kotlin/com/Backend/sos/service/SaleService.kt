@@ -1,11 +1,14 @@
 package com.Backend.sos.service
 
+import com.Backend.sos.model.Frame
 import com.Backend.sos.model.Sale
 import com.Backend.sos.repository.*
+import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
+import javax.swing.plaf.SliderUI
 
 @Service
 class SaleService {
@@ -31,22 +34,43 @@ class SaleService {
         return saleRepository.findAll()
     }
 
-    fun save(model: Sale): Sale{
+    @Transactional
+    fun sales (model: Sale): Sale{
+        rxUseRepository.findById(model.clinicalId)
+        patientRepository.findById(model.patientId)
+        userRepository.findById(model.userId)
+        lensRepository.findById(model.lensId)
 
-        try {
-            patientRepository.findById(model.patientId)
-                ?: throw Exception("Id del paciente no encontrada")
-            rxUseRepository.findById(model.clinicalId)
-                ?:throw Exception("Id de la historia clinica no existe")
-            lensRepository.findById(model.lensId)
-                ?:throw Exception("Id de lente no encontrado o no existe")
-            frameRepository.findById(model.frameId)
-                ?:throw Exception("Id del armazon no existe")
-            userRepository.findById(model.userId)
-            return saleRepository.save(model)
-        }catch (ex : Exception){
-            throw ResponseStatusException(
-                HttpStatus.NOT_FOUND, ex.message, ex)
+        val response = saleRepository.save(model)
+        val responseFrame: Frame = frameRepository.findById(response.frameId)
+        responseFrame.apply {
+            frameStock = frameStock?.minus(model.quantity!!)
+        }
+        frameRepository.save(responseFrame)
+        calculateAndUpdateTotal(response)
+        calculateAndUpdateTotalBalance(response)
+
+        return  response
+    }
+    fun calculateAndUpdateTotal(sale: Sale){
+        val totalCalculated: Double = saleRepository.calculateTotalPrice(sale.id)
+        val saleResponse = saleRepository.findById(sale.id!!).orElse(null)
+        if(saleResponse != null){
+            saleResponse.totalPrice = totalCalculated
+
+            saleRepository.save(saleResponse)
+        }else{
+            throw Exception("Venta no encontrada conx")
         }
     }
+    fun calculateAndUpdateTotalBalance(sale: Sale){
+        val totalBalance: Double = saleRepository.calculateTotalBalance(sale.id)
+        val saleBalance = saleRepository.findById(sale.id)
+        saleBalance!!.balance = totalBalance
+
+        saleRepository.save(saleBalance)
+    }
+
+
+
 }

@@ -81,21 +81,5 @@ class UserService{
     }
 
 
- /*   @Override
-    @Throws(UsernameNotFoundException::class)
-    override fun loadUserByUsername(username: String): UserDetails {
-        val userEntity = userRepository.findByUsername(username)
-            ?: throw UsernameNotFoundException("User $username not found.")
 
-        val role = roleRepository.findByRoleName(roleName = "Vendedor")
-            ?: throw UsernameNotFoundException("Role 'Vendedor' not found.")
-
-        return org.springframework.security.core.userdetails.User.builder()
-            .username(userEntity.username)
-            .password(userEntity.password)
-            .roles(role.roleName) // Aquí solo asignamos el nombre del rol
-            .accountLocked(userEntity.locked!!)
-            .disabled(userEntity.disabled!!)
-            .build()
-    }*/
 }
