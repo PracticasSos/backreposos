@@ -56,7 +56,7 @@ class UserService{
             username = request.username?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("El Nombre de usuario no debe ser vacio")
             firstname = request.firstname ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener un Nombre")
             lastname = request.lastname ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener un Apellido")
-            age = request.age!!.takeIf { it > 0 } ?: throw IllegalArgumentException("La edad es obligatoria y debe ser mayor que cero")
+            age = request.age!!.takeIf { it > 0 } ?: throw IllegalArgumentException("La edad es obligatoria y no puede ser 0")
             charge = request.charge ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener un cargo")
             birthdate = request.birthdate
             checkInDate = request.check_in_date

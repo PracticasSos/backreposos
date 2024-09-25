@@ -7,6 +7,7 @@ import com.Backend.sos.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 
 
@@ -28,7 +29,7 @@ class UserController {
 
 
     @PostMapping("/register")
-    fun register(@RequestBody request: RegisterRequest): ResponseEntity<User> {
+    fun register(@Validated @RequestBody request: RegisterRequest): ResponseEntity<User> {
         val registerUser = userService.register(request)
         return ResponseEntity.ok(registerUser)
     }
