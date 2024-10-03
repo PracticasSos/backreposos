@@ -1,14 +1,11 @@
 package com.Backend.sos.controller
 
-import com.Backend.sos.dto.FrameLensRequest
-import com.Backend.sos.dto.ProductResponse
 import com.Backend.sos.model.Frame
 import com.Backend.sos.model.Lens
 import com.Backend.sos.service.FrameLensService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -23,6 +20,11 @@ class FrameLensController {
     fun obtenerProductos(): List<Lens> {
         return frameLensService.listLens()
     }
+
+     @GetMapping("/lista de armazones")
+     fun listArmasones(): List<Frame>{
+         return frameLensService.listFrame()
+     }
 
 
 

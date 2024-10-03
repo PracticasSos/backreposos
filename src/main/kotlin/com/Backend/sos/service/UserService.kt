@@ -7,9 +7,7 @@ import com.Backend.sos.repository.BranchRepository
 import com.Backend.sos.repository.RoleRepository
 import com.Backend.sos.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
-import org.springframework.web.server.ResponseStatusException
 import java.lang.IllegalArgumentException
 
 
@@ -51,6 +49,12 @@ class UserService{
             throw IllegalArgumentException("La rama asignada no existe $brachRegister")
         }
 
+        val email = request.email?.takeIf { it.trim().isNotEmpty() }
+            ?: throw IllegalArgumentException("Debe tener un email.")
+
+        if (!email.endsWith("@gmail.com")){
+            throw IllegalArgumentException("El correo debe ser del dominio @gmail.com")
+        }
 
         val user = User().apply {
             username = request.username?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("El Nombre de usuario no debe ser vacio")
@@ -61,7 +65,7 @@ class UserService{
             birthdate = request.birthdate
             checkInDate = request.check_in_date
             ci = request.ci ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener un número de cédula")
-            email = request.email ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener un email")
+            this.email = email
             phoneNumber = request.phone_number ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener un número de telefono")
             password = request.password ?.takeIf { it.trim().isNotEmpty() } ?: throw Exception("Debe tener una contraseña")
             role = roleUser

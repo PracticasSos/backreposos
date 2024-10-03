@@ -34,6 +34,12 @@ class SaleService {
         return saleRepository.findAll()
     }
 
+
+
+    fun balalnceList(): List<Sale>{
+        return saleRepository.listBalance()
+    }
+
     @Transactional
     fun sales (model: Sale): Sale{
         rxUseRepository.findById(model.clinicalId)
@@ -70,7 +76,5 @@ class SaleService {
 
         saleRepository.save(saleBalance)
     }
-
-
 
 }

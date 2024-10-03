@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
+import java.lang.IllegalArgumentException
 
 @Service
 class BranchService {
@@ -21,6 +22,13 @@ class BranchService {
     }
 
     fun save(branch: Branch): Branch{
+        val validateGmail = branch.email?.takeIf { it.trim().isNotEmpty() }
+            ?: throw IllegalArgumentException("Debe tener un correo.")
+
+        if (!validateGmail.endsWith("@gmail.com")){
+            throw IllegalArgumentException("El correo debe ser del dominio de gmail.")
+        }
+        branch.email = validateGmail
         try{
             return branchRepository.save(branch)
         }

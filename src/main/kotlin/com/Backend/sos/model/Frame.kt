@@ -9,7 +9,7 @@ class Frame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(updatable = false)
-    var Id: Long? = null
+    var id: Long? = null
     var brand: String? = null //marca
     var reference: String? = null
     var size: Int? = null

@@ -17,4 +17,7 @@ interface SaleRepository: JpaRepository< Sale, Long>{
     @Query(nativeQuery = true)
     fun calculateTotalBalance(@Param("saleId") saleId: Long?): Double
 
+    @Query(nativeQuery = true)
+    fun listBalance(): List<Sale>
+
 }

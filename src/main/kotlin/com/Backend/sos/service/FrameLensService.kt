@@ -1,19 +1,13 @@
 package com.Backend.sos.service
 
-import com.Backend.sos.dto.FrameLensRequest
-import com.Backend.sos.dto.ProductResponse
 import com.Backend.sos.model.Frame
 import com.Backend.sos.model.Lens
 import com.Backend.sos.repository.FrameRepository
 import com.Backend.sos.repository.LensRepository
-import org.aspectj.apache.bcel.classfile.ExceptionTable
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
-import java.lang.reflect.Executable
-import javax.lang.model.element.ModuleElement
-import kotlin.time.Duration.Companion.milliseconds
 
 
 @Service
@@ -30,6 +24,10 @@ class FrameLensService {
 
     fun  listLens(): List <Lens>{
         return lensRepository.findAll()
+    }
+
+    fun listFrame(): List<Frame>{
+        return frameRepository.findAll()
     }
 
 
@@ -79,7 +77,7 @@ class FrameLensService {
 
     fun updateDaes(model : Frame): Frame{
         try {
-            val response = frameRepository.findById(model.Id)
+            val response = frameRepository.findById(model.id)
                 ?:throw Exception("ID no existe")
             response.apply {
                 brand = model.brand

@@ -1,8 +1,6 @@
 package com.Backend.sos.model
 
-import com.Backend.sos.Notation.anotacorreo
 import jakarta.persistence.*
-import jakarta.validation.constraints.Email
 
 
 import java.util.Date
@@ -28,8 +26,6 @@ class User {
     var checkInDate: Date? = null
     var ci: String? = null
     @Column(length = 50)
-    @Email(message = "debe ser un correo real pendejo ")
-    @anotacorreo(message = "El correo debe pertenecer a gmail")
     var email: String? = null
     @Column(name = "phone_number")
     var phoneNumber: String? = null

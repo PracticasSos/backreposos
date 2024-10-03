@@ -32,4 +32,8 @@ class UserPatView {
     var ptConsultationReason: String? = null
     @Column(name = "pt_recommendations")
     var ptRecommendations: String? = null
+
+
+
 }
+

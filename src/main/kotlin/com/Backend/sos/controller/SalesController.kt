@@ -15,9 +15,9 @@ class SalesController {
     @Autowired
     lateinit var saleService: SaleService
 
-    @GetMapping
+    @GetMapping("/Saldos")
     fun list(): ResponseEntity<*>{
-        return ResponseEntity(saleService.lis(), HttpStatus.OK)
+        return ResponseEntity(saleService.balalnceList(), HttpStatus.OK)
     }
 
     @PostMapping
